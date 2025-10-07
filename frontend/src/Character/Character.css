@@ -1,0 +1,131 @@
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+
+.character-page {
+  background: url("/pics/Phone.jpg") no-repeat center center;
+  background-size: cover;
+  font-family: 'Special Elite', cursive;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: hidden; 
+}
+
+/* Add dark overlay over background */
+.character-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 0;
+}
+
+/* Ensure content stays above overlay */
+.title,
+.suspect-grid,
+.next-button {
+  position: relative;
+  z-index: 1;
+}
+
+/* Page title */
+.title {
+  font-size: 55px;
+  margin-bottom: 40px;
+}
+
+/* Grid layout */
+.suspect-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 180px;
+  gap: 20px 60px;
+  justify-items: center;
+}
+
+/* Each suspect block */
+.suspect-card {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+/* Placeholder image */
+.suspect-img {
+  width: 150px;
+  height: 150px;
+  background: #ffffff;
+  border-radius: 12px;
+  border: 2px solid #222;
+}
+
+/* --- Suspect info box --- */
+.suspect-info {
+    width: 400px;
+    height: 180px;
+    background: rgba(90, 30, 30, 0.85);
+    border-radius: 25px;
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* text starts near top */
+    align-items: flex-start;
+    font-size: 16px;
+    line-height: 1.4;
+    color: #fff;
+    box-sizing: border-box;
+  }
+  
+  /* Name header */
+  .suspect-info p:first-child {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  
+  /* Other labels with indent */
+  .suspect-info p:not(:first-child) {
+    margin: 2px 0;
+    font-size: 14px;
+    padding-left: 14px; /* space for the bullet */
+    position: relative;
+  }
+  
+  /* bullets */
+  .suspect-info p:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 4px;        /* very small */
+    height: 4px;
+    background-color: #fff;
+    border-radius: 50%; /* circle */
+    opacity: 0.9;
+  }  
+
+/* Next button */
+.next-button {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.next-button:hover {
+  color: #ff4444;
+}
+
+/* Arrow styling */
+.arrow {
+  font-size: 45px;
+  line-height: 0;
+  margin-top: -3px;
+}

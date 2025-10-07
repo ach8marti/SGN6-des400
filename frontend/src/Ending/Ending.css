@@ -1,0 +1,66 @@
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+.ending-page {
+  background: url("/pics/Board.jpg") no-repeat center center;
+  background-size: cover;
+  font-family: "Special Elite", cursive;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  position: relative;
+}
+
+/* Black rectangle box */
+.title-box {
+  background: rgba(0, 0, 0, 0.65);
+  width: 650px;              /* fixed width */
+  height: 180px;             /* fixed height */
+  display: flex;
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+/* CASE CLOSED/FAILED text centered inside the box */
+.title-box h1 {
+  font-size: 70px;
+  letter-spacing: 2px;
+  margin: 0;
+  text-align: center;
+}
+
+/* Subtitle below box */
+.subtitle {
+  font-size: 28px;
+  margin-top: 30px;
+  font-weight: 400;
+  z-index: 1;
+  position: relative;
+}
+
+/* Cinematic fade overlay */
+.ending-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    transparent 30%,
+    transparent 70%,
+    rgba(0, 0, 0, 0.5)
+  );
+  z-index: 0;
+}

@@ -1,0 +1,96 @@
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+
+.killer-page {
+  background: url("/pics/Bedroom.jpg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  font-family: "Special Elite", cursive;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+  overflow: hidden;
+  padding-top: 60px;
+}
+
+.killer-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Header banner */
+.header-banner {
+  background: rgba(90, 30, 30, 0.9);
+  padding: 25px 40px;
+  border-radius: 10px;
+  margin-bottom: 100px;
+  position: relative;
+  z-index: 2;
+}
+
+.header-banner h1 {
+  font-size: 32px;
+  margin: 0;
+  text-align: center;
+}
+
+/* Suspect row */
+.suspect-row {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 70px;
+}
+
+/* Suspect box */
+.suspect-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.suspect-img {
+  width: 150px;
+  height: 150px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.suspect-box p {
+  font-size: 20px;
+  margin: 10;
+  text-align: center;
+}
+
+/* Reason input box placeholder */
+.reason-box {
+    background: rgba(54, 53, 53, 0.75);
+    border-radius: 12px;
+    width: min(850px, 90%);
+    height: clamp(150px, 16vh, 140px);
+    position: relative;
+    z-index: 2;
+    padding: 20px 25px;       /* add padding for spacing inside */
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;  /* align text to top-left */
+    box-sizing: border-box;
+  }
+  
+  .reason-box p {
+    margin: 0;
+    font-size: 20px;
+    text-align: left;
+    line-height: 1.5;
+    color: #fff;
+    opacity: 0.9;
+  }
+  
