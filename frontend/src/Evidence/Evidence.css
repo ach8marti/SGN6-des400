@@ -1,0 +1,69 @@
+@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
+
+.evidence-page {
+  background: url("/pics/Bedroom.jpg") no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  font-family: "Special Elite", cursive;
+  overflow: hidden;
+}
+
+/* optional cinematic dark overlay */
+.evidence-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Center paper note */
+.evidence-frame {
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(214, 207, 207, 0.15);
+  border-radius: 6px;
+  z-index: 1;
+  margin-bottom: 100px; 
+}
+
+/* Bottom description box */
+.description-frame {
+  background: rgba(39, 38, 38, 0.75);
+  border-radius: 12px;
+  width: min(1000px, 90%);
+  height: clamp(80px, 14vh, 130px);
+  margin-bottom: clamp(170px, 12vh, 150px); 
+  z-index: 2;
+}
+
+/* Next button bottom-right */
+.next-button {
+  position: absolute;
+  bottom: 40px;
+  right: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 2;
+}
+
+.next-button:hover {
+  color: #ff4444;
+}
+
+/* Arrow */
+.arrow {
+  font-size: 45px;
+  line-height: 0;
+  margin-top: -3px;
+}
