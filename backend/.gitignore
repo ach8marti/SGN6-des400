@@ -1,0 +1,11 @@
+# ห้ามอัปโหลดไฟล์ key ลับ
+serviceAccountKey.json
+
+# ห้ามอัปโหลดโฟลเดอร์ dependency
+node_modules/
+
+# ไฟล์ environment ส่วนตัว
+.env
+
+# ไฟล์ log ชั่วคราว
+npm-debug.log*.DS_Store
