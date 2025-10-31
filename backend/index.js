@@ -8,7 +8,7 @@ app.use(express.json());
 
 // default route
 app.get("/", (req, res) => {
-  res.send("Welcome to The Last Message Backend API");
+  res.send("Welcome to The Last Message Backend");
 });
 
 app.get("/api/suspects", async (req, res) => {
