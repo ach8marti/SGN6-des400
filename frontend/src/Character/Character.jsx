@@ -34,7 +34,7 @@ export default function Character() {
         <div className="suspect-card">
           <div className="suspect-img"></div>
           <div className="suspect-info">
-            <p>Name</p>
+            <p>Name {suspects.name}</p>
             <p>Role:</p>
             <p>Trust:</p>
             <p>Relation:</p>

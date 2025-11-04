@@ -13,7 +13,7 @@
   "description": "",
   "devDependencies": {
     "@vitejs/plugin-react": "^5.0.4",
-    "vite": "^7.1.11"
+    "vite": "^7.1.12"
   },
   "dependencies": {
     "firebase": "^12.4.0",
