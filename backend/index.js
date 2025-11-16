@@ -1,32 +1,19 @@
 const express = require("express");
 const cors = require("cors");
-const { db } = require("./firebaseAdmin");
+const path = require("path");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
 // default route
-app.get("/", (req, res) => {
-  res.send("Welcome to The Last Message Backend");
+app.get("/api/suspects", (req, res) => {
+  res.sendFile(path.join(__dirname, "suspects.json"));
 });
 
-app.get("/api/suspects", async (req, res) => {
-  try {
-    const charactersSnapshot = await db.collection("suspects").get();
-    const characters = [];
-    charactersSnapshot.forEach(doc => {
-      characters.push({ id: doc.id, ...doc.data() });
-    });
-    res.json(characters);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
 
-// test route
-app.get("/api/test", (req, res) => {
-  res.json({ message: "Backend is working!" });
+app.get("/api/evidence", (req, res) => {
+  res.sendFile(path.join(__dirname, "evidence.json"));
 });
 
 const PORT = 3001;

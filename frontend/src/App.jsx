@@ -1,10 +1,9 @@
 import React from "react";
+import Character from "./Character/Character.jsx";
+import Evidence from "./Evidence/Evidence.jsx";
 
 export default function App() {
   return (
-    <div style={{ textAlign: "center", marginTop: 50 }}>
-      <h1>The Last Message</h1>
-      <p>Frontend connected to Firebase successfully ✅</p>
-    </div>
+    <Character />
   );
 }

@@ -1,0 +1,92 @@
+[
+    {
+        "id": "S1",
+        "name": "Mina",
+        "canBeKiller": true,
+        "canBeVictim": true,
+        "role": "Friend",
+        "profile": "Close friend of the victim",
+        "traits": ["evasive", "nervous"]
+    },
+    {
+        "id": "S2",
+        "name": "John",
+        "canBeKiller": true,
+        "canBeVictim": true,
+        "role": "Colleague",
+        "profile": "Works with the victim at the same company",
+        "traits": ["confident", "calm"]
+    },
+    {
+        "id": "S3",
+        "name": "Andrea",
+        "canBeKiller": true,
+        "canBeVictim": false,
+        "role": "Neighbor",
+        "profile": "Lives next door to the victim",
+        "traits": ["observant", "quiet"]
+    },
+    {
+        "id": "S4",
+        "name": "Liam",
+        "canBeKiller": false,
+        "canBeVictim": true,
+        "role": "Family Member",
+        "profile": "Cousin of the victim",
+        "traits": ["supportive", "anxious"]
+    },
+    {
+        "id": "S5",
+        "name": "Sophia",
+        "canBeKiller": true,
+        "canBeVictim": false,
+        "role": "Acquaintance",
+        "profile": "Met the victim at social events",
+        "traits": ["friendly", "outgoing"]
+    },
+    {
+        "id": "S6",
+        "name": "Ally",
+        "canBeKiller": true,
+        "canBeVictim": true,
+        "role": "Stranger",
+        "profile": "A person unknown to the victim",
+        "traits": ["mysterious", "elusive"]
+    },
+    {
+        "id": "S7",
+        "name": "Ethan",
+        "canBeKiller": false,
+        "canBeVictim": true,
+        "role": "Friend",
+        "profile": "Long-time friend of the victim",
+        "traits": ["loyal", "thoughtful"]
+    },
+    {
+        "id": "S8",
+        "name": "Olivia",
+        "canBeKiller": true,
+        "canBeVictim": false,
+        "role": "Colleague",
+        "profile": "Works in the same department as the victim",
+        "traits": ["ambitious", "competitive"]
+    },
+    {
+        "id": "S9",
+        "name": "Noah",
+        "canBeKiller": true,
+        "canBeVictim": true,
+        "role": "Neighbor",
+        "profile": "Lives in the same apartment complex as the victim",
+        "traits": ["friendly", "helpful"]
+    },
+    {
+        "id": "S10",
+        "name": "Isabella",
+        "canBeKiller": false,
+        "canBeVictim": true,
+        "role": "Family Member",
+        "profile": "Sister of the victim",
+        "traits": ["protective", "caring"]
+    }
+]

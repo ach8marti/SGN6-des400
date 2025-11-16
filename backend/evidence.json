@@ -1,0 +1,145 @@
+[
+    {
+        "id": "E1",
+        "title": "Primary Motive Evidence",
+        "type": "document",
+        "slotType": "PRIMARY_MOTIVE",
+        "revealedWhen": "event.mid_investigation",
+        "summaryTemplate": "[SUSPECT_NAME] had a strong motive: {motive_details}",
+        "possibleMotives": [
+            "financial debt of $50,000",
+            "professional rivalry over a promotion",
+            "jealousy in a personal relationship", 
+            "blackmail over a hidden secret",
+            "revenge for a past betrayal"
+        ],
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E2",
+        "title": "Opportunity Evidence",
+        "type": "image",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.timeline_reconstruction", 
+        "summaryTemplate": "CCTV shows [SUSPECT_NAME] near the scene at the critical time",
+        "assignment": {
+            "targetCount": 4,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E3",
+        "title": "Suspicious Behavior",
+        "type": "report",
+        "slotType": "BEHAVIOR",
+        "revealedWhen": "event.witness_interviews",
+        "summaryTemplate": "Witnesses report [SUSPECT_NAME] acting nervously after the incident",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E4", 
+        "title": "Forensic Connection",
+        "type": "object",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.forensics_report",
+        "summaryTemplate": "[SUSPECT_NAME]'s fingerprints/DNA found at the scene",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E5",
+        "title": "Alibi Inconsistency", 
+        "type": "document",
+        "slotType": "ALIBI_WEAKNESS",
+        "revealedWhen": "event.alibi_verification",
+        "summaryTemplate": "Holes found in [SUSPECT_NAME]'s alibi for the night",
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E6",
+        "title": "Means Evidence",
+        "type": "object",
+        "slotType": "MEANS",
+        "revealedWhen": "event.search_locations", 
+        "summaryTemplate": "Item linking [SUSPECT_NAME] to the method used found in their possession",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E7",
+        "title": "Red Herring - Weak Motive",
+        "type": "document",
+        "slotType": "RED_HERRING_MOTIVE",
+        "revealedWhen": "event.early_investigation",
+        "summaryTemplate": "[SUSPECT_NAME] had a minor disagreement with the victim recently",
+        "assignment": {
+            "targetCount": 4,
+            "filters": ["canBeKiller=true", "canBeVictim=false"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E8",
+        "title": "Character Testimony",
+        "type": "document", 
+        "slotType": "CHARACTER_WITNESS",
+        "revealedWhen": "event.background_checks",
+        "summaryTemplate": "Associate describes [SUSPECT_NAME] as {character_trait}",
+        "possibleTraits": [
+            "unpredictable and volatile",
+            "secretive and untrustworthy", 
+            "desperate and unstable",
+            "calculating and ambitious"
+        ],
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E9",
+        "title": "Digital Footprint",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "[SUSPECT_NAME]'s online activity reveals suspicious searches about the victim",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E10",
+        "title": "Physical Evidence",
+        "type": "object",
+        "slotType": "PHYSICAL_LINK", 
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "Item belonging to [SUSPECT_NAME] found at the crime scene",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    }
+]
