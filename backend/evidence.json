@@ -141,5 +141,537 @@
             "filters": ["canBeKiller=true"],
             "exclusive": true
         }
+    },
+    {
+        "id": "E11",
+        "title": "Financial Records",
+        "type": "document",
+        "slotType": "FINANCIAL_MOTIVE",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "Bank records show [SUSPECT_NAME] was in serious financial trouble",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E12",
+        "title": "Phone Location Data",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "Cell tower data places [SUSPECT_NAME]'s phone at the crime scene",
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E13",
+        "title": "Threatening Message",
+        "type": "document",
+        "slotType": "THREAT_EVIDENCE",
+        "revealedWhen": "event.email_analysis",
+        "summaryTemplate": "Email from [SUSPECT_NAME] contains threats toward the victim",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E14",
+        "title": "Security Footage Gap",
+        "type": "image",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.timeline_reconstruction",
+        "summaryTemplate": "[SUSPECT_NAME] is unaccounted for during 30-minute window around the crime",
+        "assignment": {
+            "targetCount": 4,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E15",
+        "title": "Purchase Records",
+        "type": "document",
+        "slotType": "MEANS",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "[SUSPECT_NAME] recently purchased items similar to the murder weapon",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E16",
+        "title": "Work Schedule Anomaly",
+        "type": "document",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.alibi_verification",
+        "summaryTemplate": "[SUSPECT_NAME] unexpectedly changed their work schedule on the day of the crime",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E17",
+        "title": "Blood Spatter Analysis",
+        "type": "report",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.forensics_report",
+        "summaryTemplate": "Blood spatter patterns inconsistent with [SUSPECT_NAME]'s stated position",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E18",
+        "title": "Inheritance Document",
+        "type": "document",
+        "slotType": "FINANCIAL_MOTIVE",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "[SUSPECT_NAME] stands to inherit from the victim's estate",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E19",
+        "title": "Deleted Text Messages",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "Recovered texts show [SUSPECT_NAME] arranging to meet the victim",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E20",
+        "title": "Muddy Footprints",
+        "type": "image",
+        "slotType": "PHYSICAL_LINK",
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "Footprints matching [SUSPECT_NAME]'s shoes found at secondary location",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E21",
+        "title": "Psychological Profile",
+        "type": "report",
+        "slotType": "CHARACTER_WITNESS",
+        "revealedWhen": "event.background_checks",
+        "summaryTemplate": "Expert describes [SUSPECT_NAME] as having {psychological_trait}",
+        "possibleTraits": [
+            "a tendency toward violent outbursts",
+            "manipulative and deceptive tendencies",
+            "obsessive personality traits",
+            "lack of empathy for others"
+        ],
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E22",
+        "title": "Garage Receipt",
+        "type": "document",
+        "slotType": "ALIBI_WEAKNESS",
+        "revealedWhen": "event.alibi_verification",
+        "summaryTemplate": "Receipt proves [SUSPECT_NAME] was not where they claimed to be",
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E23",
+        "title": "Hidden Compartment",
+        "type": "object",
+        "slotType": "SUSPICIOUS_BEHAVIOR",
+        "revealedWhen": "event.search_locations",
+        "summaryTemplate": "Hidden compartment in [SUSPECT_NAME]'s home contains incriminating items",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E24",
+        "title": "Business Partnership Agreement",
+        "type": "document",
+        "slotType": "FINANCIAL_MOTIVE",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "Contract shows [SUSPECT_NAME] would gain control of business after victim's death",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E25",
+        "title": "Neighbor Testimony",
+        "type": "document",
+        "slotType": "WITNESS_ACCOUNT",
+        "revealedWhen": "event.witness_interviews",
+        "summaryTemplate": "Neighbor reports hearing argument between [SUSPECT_NAME] and victim",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E26",
+        "title": "Travel Records",
+        "type": "document",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.timeline_reconstruction",
+        "summaryTemplate": "Records show [SUSPECT_NAME] returned to town earlier than claimed",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E27",
+        "title": "Toxicology Report",
+        "type": "report",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.forensics_report",
+        "summaryTemplate": "Unusual chemicals found on [SUSPECT_NAME]'s clothing match crime scene samples",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E28",
+        "title": "Social Media Post",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "[SUSPECT_NAME] posted cryptic message about 'getting even' before the crime",
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E29",
+        "title": "Locked Room Mystery",
+        "type": "report",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "Evidence suggests only someone with [SUSPECT_NAME]'s access could have entered",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E30",
+        "title": "Former Employee Statement",
+        "type": "document",
+        "slotType": "CHARACTER_WITNESS",
+        "revealedWhen": "event.background_checks",
+        "summaryTemplate": "Former colleague describes [SUSPECT_NAME] as {work_behavior}",
+        "possibleTraits": [
+            "willing to sabotage others for advancement",
+            "prone to violent rage when challenged",
+            "unusually interested in the victim's schedule",
+            "constantly lying about their whereabouts"
+        ],
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E31",
+        "title": "Insurance Policy",
+        "type": "document",
+        "slotType": "FINANCIAL_MOTIVE",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "[SUSPECT_NAME] is beneficiary of victim's life insurance policy",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E32",
+        "title": "Parking Garage Ticket",
+        "type": "document",
+        "slotType": "PHYSICAL_LINK",
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "Parking ticket places [SUSPECT_NAME]'s vehicle near crime scene",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E33",
+        "title": "Burner Phone Records",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "Disposable phone purchased by [SUSPECT_NAME] used to contact victim",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E34",
+        "title": "Storage Unit Contents",
+        "type": "object",
+        "slotType": "MEANS",
+        "revealedWhen": "event.search_locations",
+        "summaryTemplate": "Storage unit rented by [SUSPECT_NAME] contains suspicious equipment",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E35",
+        "title": "Hotel Registration",
+        "type": "document",
+        "slotType": "ALIBI_WEAKNESS",
+        "revealedWhen": "event.alibi_verification",
+        "summaryTemplate": "Hotel records contradict [SUSPECT_NAME]'s claimed whereabouts",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E36",
+        "title": "Forensic Fiber Match",
+        "type": "report",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.forensics_report",
+        "summaryTemplate": "Fibers from [SUSPECT_NAME]'s clothing match those found on victim",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E37",
+        "title": "Secret Relationship Evidence",
+        "type": "document",
+        "slotType": "PERSONAL_MOTIVE",
+        "revealedWhen": "event.background_checks",
+        "summaryTemplate": "Evidence reveals [SUSPECT_NAME] was having secret affair with victim's partner",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E38",
+        "title": "Workshop Inventory",
+        "type": "document",
+        "slotType": "MEANS",
+        "revealedWhen": "event.search_locations",
+        "summaryTemplate": "[SUSPECT_NAME] had access to tools that could create murder weapon",
+        "assignment": {
+            "targetCount": 3,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E39",
+        "title": "Security System Logs",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "Home security system shows [SUSPECT_NAME] leaving at critical time",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E40",
+        "title": "Bloodied Clothing",
+        "type": "object",
+        "slotType": "PHYSICAL_LINK",
+        "revealedWhen": "event.search_locations",
+        "summaryTemplate": "Blood-stained clothing belonging to [SUSPECT_NAME] found hidden",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E41",
+        "title": "Blackmail Evidence",
+        "type": "document",
+        "slotType": "MOTIVE_EVIDENCE",
+        "revealedWhen": "event.mid_investigation",
+        "summaryTemplate": "Evidence found that victim was blackmailing [SUSPECT_NAME]",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E42",
+        "title": "GPS Navigation History",
+        "type": "document",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "Car GPS shows [SUSPECT_NAME] drove to crime scene location",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E43",
+        "title": "Medical Expertise",
+        "type": "report",
+        "slotType": "MEANS",
+        "revealedWhen": "event.background_checks",
+        "summaryTemplate": "[SUSPECT_NAME] has medical knowledge consistent with cause of death",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E44",
+        "title": "Paid Informant Testimony",
+        "type": "document",
+        "slotType": "WITNESS_ACCOUNT",
+        "revealedWhen": "event.witness_interviews",
+        "summaryTemplate": "Informant claims [SUSPECT_NAME] offered money for false alibi",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E45",
+        "title": "Computer Search History",
+        "type": "document",
+        "slotType": "DIGITAL_EVIDENCE",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "[SUSPECT_NAME] searched for 'undetectable poisons' week before crime",
+        "assignment": {
+            "targetCount": 2,
+            "filters": ["canBeKiller=true"],
+            "exclusive": false
+        }
+    },
+    {
+        "id": "E46",
+        "title": "Crime Scene Photo Analysis",
+        "type": "image",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "Enhanced photo shows object belonging to [SUSPECT_NAME] at scene",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E47",
+        "title": "Business Failure Documents",
+        "type": "document",
+        "slotType": "FINANCIAL_MOTIVE",
+        "revealedWhen": "event.financial_investigation",
+        "summaryTemplate": "[SUSPECT_NAME]'s failing business would be saved by victim's death",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E48",
+        "title": "Voice Recording",
+        "type": "document",
+        "slotType": "WITNESS_ACCOUNT",
+        "revealedWhen": "event.witness_interviews",
+        "summaryTemplate": "Recording captures [SUSPECT_NAME] making threatening statements",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E49",
+        "title": "Custom Tool Markings",
+        "type": "report",
+        "slotType": "FORENSIC",
+        "revealedWhen": "event.forensics_report",
+        "summaryTemplate": "Tool marks at scene match unique tools owned by [SUSPECT_NAME]",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
+    },
+    {
+        "id": "E50",
+        "title": "Calendar Entry",
+        "type": "document",
+        "slotType": "OPPORTUNITY",
+        "revealedWhen": "event.digital_forensics",
+        "summaryTemplate": "[SUSPECT_NAME]'s calendar shows meeting with victim at time of murder",
+        "assignment": {
+            "targetCount": 1,
+            "filters": ["canBeKiller=true"],
+            "exclusive": true
+        }
     }
 ]

@@ -3,67 +3,78 @@
 .evidence-page {
   background: url("/pics/Bedroom.jpg") no-repeat center center fixed;
   background-size: cover;
-  height: 100vh;
+  height: 100vh; /* Full viewport height */
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  position: relative;
   font-family: "Special Elite", cursive;
   overflow: hidden;
+  justify-content: center; /* Center content vertically */
+  align-items: center; /* Center content horizontally */
 }
 
-/* optional cinematic dark overlay */
-.evidence-page::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: 0;
+/* Evidence row (top section) */
+.evidence-grid {
+  display: flex; /* Use flexbox for horizontal layout */
+  justify-content: center; /* Center the evidence cards horizontally */
+  align-items: center; /* Center the evidence cards vertically */
+  gap: 20px; /* Space between items */
+  margin-bottom: 30px; /* Space between evidence and descriptions */
 }
 
-/* Center paper note */
-.evidence-frame {
-  width: 300px;
-  height: 300px;
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(214, 207, 207, 0.15);
-  border-radius: 6px;
-  z-index: 1;
-  margin-bottom: 100px; 
-}
-
-/* Bottom description box */
-.description-frame {
-  background: rgba(39, 38, 38, 0.75);
-  border-radius: 12px;
-  width: min(1000px, 90%);
-  height: clamp(80px, 14vh, 130px);
-  margin-bottom: clamp(170px, 12vh, 150px); 
-  z-index: 2;
-}
-
-/* Next button bottom-right */
-.next-button {
-  position: absolute;
-  bottom: 40px;
-  right: 60px;
+/* Evidence card styling */
+.evidence-card {
+  text-align: center;
+  border: 2px solid #ff4444; /* Red border for emphasis */
+  border-radius: 8px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  width: 100px; /* Set width explicitly */
+  height: 100px; /* Set height equal to width to make it square */
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 30px;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+/* Evidence label styling */
+.evidence-label {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+  text-align: center;
+}
+
+/* Description list (bottom section) */
+.description-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Space between text boxes */
+  padding: 20px;
+  width: 80%; /* Adjust width for better alignment */
+  border-radius: 8px;
+}
+
+.description-item {
+  padding: 10px 20px;
+  margin: 5px 0;
+  background-color: rgba(249, 249, 249, 0.869);
+  color: #4f4f4f;
+  font-size: 14px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  text-align: center;
+}
+
+/* Done button styling */
+.done-button {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #ff4444;
+  color: #fff;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: color 0.3s;
-  z-index: 2;
-}
-
-.next-button:hover {
-  color: #ff4444;
-}
-
-/* Arrow */
-.arrow {
-  font-size: 45px;
-  line-height: 0;
-  margin-top: -3px;
+  transition: background-color 0.3s;
 }
