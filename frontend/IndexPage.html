@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Game Menu</title>
+  <!-- Load Special Elite font -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+    body {
+      background: url("/pics/index.png") no-repeat center center;
+      background-size: cover;
+      font-family: 'Special Elite', cursive;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      color: white;
+    }
+    .menu {
+      margin-left: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: flex-start; /* keep START left aligned */
+    }
+    #start {
+      font-size: 70px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    #quit {
+      font-size: 50px;
+      cursor: pointer;
+      transition: color 0.2s;
+      text-align: center;   /* center its own text */
+      width: 100%;          /* same width as START */
+    }
+    .menu span:hover {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div class="menu">
+    <span id="start">START</span>
+    <span id="quit">Quit</span>
+  </div>
+
+  <script>
+    document.getElementById('start').addEventListener('click', () => {
+      alert('Game Starting...');
+    });
+
+    document.getElementById('quit').addEventListener('click', () => {
+      alert('Quit Game');
+    });
+  </script>
+</body>
+</html>

@@ -11,65 +11,36 @@
   justify-content: flex-end;
   position: relative;
   font-family: "Special Elite", cursive;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
-/* Evidence grid (top half) */
-.evidence-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns */
-  gap: 20px; /* Space between items */
-  flex: 1; /* Take up the top half of the screen */
-  margin: 20px 0;
+/* optional cinematic dark overlay */
+.evidence-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
 }
 
-.evidence-card {
-  text-align: center;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 10px;
-  background-color: #f9f9f9;
-}
-
+/* Center paper note */
 .evidence-frame {
-  height: 150px; /* Adjust as needed */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #eaeaea;
-  border-radius: 8px;
+  width: 300px;
+  height: 300px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(214, 207, 207, 0.15);
+  border-radius: 6px;
+  z-index: 1;
+  margin-bottom: 100px; 
 }
 
-/* Description list (bottom half) */
-.description-list {
-  flex: 1; /* Take up the bottom half of the screen */
-  padding: 20px;
-  background-color: #ffffff; /* Light background for contrast */
-  display: flex;
-  flex-direction: column;
-  gap: 15px; /* Space between text boxes */
-  align-content: center;
-}
-
-.description-item {
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: #fff;
-  background-color: #555;
-  border-radius: 8px; /* Rounded corners */
-  padding: 15px; /* Space inside the text box */
-  width: 80%; /* Adjust width for better alignment */
-  text-align: center; /* Center the text inside the box */
-  display: flex;
-  justify-content: center; /* Center text horizontally */
-  align-items: center; /* Center text vertically */
-}
-
-
-.description-text {
-  font-size: 14px;
-  line-height: 1.5;
-  text-align: center;
+/* Bottom description box */
+.description-frame {
+  background: rgba(39, 38, 38, 0.75);
+  border-radius: 12px;
+  width: min(1000px, 90%);
+  height: clamp(80px, 14vh, 130px);
+  margin-bottom: clamp(170px, 12vh, 150px); 
+  z-index: 2;
 }
 
 /* Next button bottom-right */
