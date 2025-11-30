@@ -1,14 +1,13 @@
-// src/Phone/MessageApp.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../Phone/Phone.css";
+import "./Phone.css";
+import TopIcons from "./TopIcons";
 
 export default function MessageApp() {
   const navigate = useNavigate();
   const [chatTitle, setChatTitle] = useState("Group Chat");
 
   useEffect(() => {
-    // ดึง story จาก localStorage มาใช้ตั้งชื่อห้อง
     const saved = localStorage.getItem("currentStory");
     if (saved) {
       try {
@@ -28,18 +27,17 @@ export default function MessageApp() {
 
   return (
     <div className="lock-page">
-      {/* LEFT: phone frame */}
+      <TopIcons />
+
       <div className="lock-phone">
         <div
           className="lock-phone-screen"
-          style={{ backgroundColor: "#000" }} // พื้นหลังดำ ตอนนี้ simple ไปก่อน
+          style={{ backgroundColor: "#000" }}
         >
-          {/* ด้านบน header เขียนว่า Messages */}
           <div className="chat-header">
             <div className="messages">Messages</div>
           </div>
 
-          {/* list แชท (ตอนนี้มีห้องเดียว) */}
           <div
             style={{
               marginTop: "100px",
@@ -80,7 +78,6 @@ export default function MessageApp() {
         </div>
       </div>
 
-      {/* RIGHT: text box frame (ไว้บรรยายเพิ่มเติมทีหลัง) */}
       <div className="lock-text-box">
         <div className="story-text">
           <p>You're now inside the victim's phone.</p>

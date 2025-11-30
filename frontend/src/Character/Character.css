@@ -1,163 +1,143 @@
 @import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
 
 .character-page {
-  background: url("/pics/Phone.jpg") no-repeat center center;
+  background: url("/pics/Bedroom.jpg") no-repeat center center;
   background-size: cover;
-  font-family: 'Special Elite', cursive;
+  font-family: "Special Elite", cursive;
   color: #fff;
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   position: relative;
-  overflow: auto; /* Changed from hidden to auto for scrolling if needed */
-  padding: 20px; /* Added padding */
+  overflow: hidden;
 }
 
-/* Add dark overlay over background */
+/* dark overlay */
 .character-page::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5); 
+  background: rgba(0, 0, 0, 0.45);
   z-index: 0;
 }
 
-/* Ensure content stays above overlay */
+/* ให้ content ลอยอยู่เหนือ overlay */
 .title,
 .suspect-grid,
-.next-button {
+.back-button {
   position: relative;
   z-index: 1;
 }
 
-/* Page title */
+/* Title */
 .title {
-  font-size: 45px; /* Reduced size */
-  margin-bottom: 30px;
-  text-align: center;
+  font-size: 55px;
+  margin-top: 32px;
+  margin-bottom: 26px;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
 }
 
-/* Grid layout - COMPACT VERSION */
+/* Grid 2 คอลัมน์, แถวล่าง 1 การ์ดกลาง */
 .suspect-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-auto-rows: 160px; /* Reduced row height */
-  gap: 15px 30px; /* Reduced gaps */
-  justify-items: center;
-  max-width: 95%; /* Prevent overflow */
-  margin: 0 auto; /* Center the grid */
+  grid-template-columns: repeat(2, auto);
+  column-gap: 70px;
+  row-gap: 16px;
+  justify-content: center;
+  margin-bottom: 34px;
 }
 
-/* Each suspect block */
+/* การ์ดใบที่ 5 ให้อยู่กลางล่าง */
+.suspect-grid > .suspect-card:nth-child(5) {
+  grid-column: 1 / span 2;
+  justify-self: center;
+}
+
+/* การ์ดตัวละคร */
 .suspect-card {
   display: flex;
-  gap: 12px; /* Reduced gap */
-  align-items: center;
+  gap: 12px;
+  align-items: flex-start;
 }
 
-/* Placeholder image - SMALLER */
+/* กล่องรูป */
 .suspect-img {
-  width: 120px; /* Reduced from 150px */
-  height: 120px; /* Reduced from 150px */
+  width: 120px;
+  height: 120px;
   background: #ffffff;
-  border-radius: 12px;
+  border-radius: 16px;
   border: 2px solid #222;
+  overflow: hidden;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7);
 }
 
-/* --- Suspect info box - COMPACT --- */
+.suspect-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* กล่องข้อมูล – ใช้ความสูงอัตโนมัติ ไม่บังคับ fixed */
 .suspect-info {
-  width: 320px; /* Reduced from 400px */
-  height: 160px; /* Reduced from 180px */
+  width: 380px;
+  min-height: 130px;               /* พื้นฐานให้ไม่เตี้ยไป */
   background: rgba(90, 30, 30, 0.85);
-  border-radius: 20px;
-  padding: 10px 15px; /* Reduced padding */
+  border-radius: 25px;
+  padding: 8px 18px 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  font-size: 12px; /* Smaller font */
-  line-height: 1.2; /* Tighter line height */
+  font-size: 12px;
+  line-height: 1.3;
   color: #fff;
   box-sizing: border-box;
-  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
 }
 
-/* Name header */
+/* ชื่อด้านบน */
 .suspect-info p:first-child {
-  font-size: 18px; /* Smaller */
+  font-size: 18px;
   font-weight: 700;
-  margin-bottom: 1px;
-  line-height: 1.1;
+  margin-bottom: 3px;
 }
 
-/* Other labels with indent */
+/* รายการบรรทัดอื่น */
 .suspect-info p:not(:first-child) {
-  margin: 0.5px 0; /* Very small margin */
-  font-size: 13px; /* Smaller font */
-  padding-left: 10px; /* Reduced indent */
+  margin: 1px 0;
+  font-size: 11px;
+  padding-left: 12px;
   position: relative;
-  line-height: 1.1;
+  word-wrap: break-word;
 }
 
-/* bullets */
+/* bullet เล็ก ๆ */
 .suspect-info p:not(:first-child)::before {
   content: "";
   position: absolute;
   left: 0;
-  top: 5px;
-  width: 2px; /* Smaller */
-  height: 2px;
+  top: 6px;
+  width: 4px;
+  height: 4px;
   background-color: #fff;
   border-radius: 50%;
   opacity: 0.9;
-}  
+}
 
-/* Next button */
-.next-button {
-  position: fixed; /* Changed from absolute to fixed */
-  bottom: 20px;
-  right: 20px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 24px; /* Smaller */
+/* ปุ่ม Back มุมซ้ายล่าง */
+.back-button {
+  position: absolute;
+  left: 40px;
+  bottom: 32px;
+  font-size: 22px;
   cursor: pointer;
-  transition: color 0.3s;
-  background: rgba(0, 0, 0, 0.7); /* Add background for visibility */
-  padding: 8px 16px;
-  border-radius: 8px;
+  text-shadow: 0 3px 12px rgba(0, 0, 0, 0.9);
+  transition: color 0.2s, transform 0.2s;
 }
 
-.next-button:hover {
+.back-button:hover {
   color: #ff4444;
-}
-
-/* Arrow styling */
-.arrow {
-  font-size: 36px; /* Smaller */
-  line-height: 0;
-  margin-top: -2px;
-}
-
-/* ALTERNATIVE: SINGLE COLUMN FOR SMALL SCREENS */
-@media (max-width: 1200px) {
-  .suspect-grid {
-    grid-template-columns: 1fr; /* Single column on smaller screens */
-    gap: 15px;
-  }
-  
-  .suspect-card {
-    justify-content: center;
-  }
-}
-
-/* COMPACT LAYOUT OPTION - Remove images if still too large */
-.compact-layout .suspect-img {
-  display: none; /* Hide images in compact mode */
-}
-
-.compact-layout .suspect-info {
-  width: 400px; /* Can be wider without images */
-  height: 140px; /* Even more compact */
+  transform: translateX(-3px);
 }

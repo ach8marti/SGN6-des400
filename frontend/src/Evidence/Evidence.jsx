@@ -1,20 +1,34 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Evidence.css";
 
 export default function Evidence() {
-  const [evidence, setEvidence] = useState([]); // Initialize state for evidence
-  const [loading, setLoading] = useState(true); // Initialize state for loading
+  const navigate = useNavigate();
+
+  const [evidence, setEvidence] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [unlocked, setUnlocked] = useState(false);
+
+  useEffect(() => {
+    const flag =
+      typeof window !== "undefined" &&
+      localStorage.getItem("evidenceUnlocked") === "true";
+    setUnlocked(flag);
+  }, []);
 
   useEffect(() => {
     const fetchEvidence = async () => {
       try {
-        const response = await fetch("http://localhost:3001/api/evidence"); // Fetch from backend
+        const response = await fetch("http://localhost:3001/api/evidence");
         const data = await response.json();
-        console.log("Fetched evidence:", data); // Debugging: Log the data
-        
-        // Shuffle the evidence array and take first 4 items
-        const shuffledEvidence = shuffleArray(data).slice(0, 4);
-        setEvidence(shuffledEvidence);
+
+        const shuffled = [...data];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        setEvidence(shuffled.slice(0, 4));
       } catch (error) {
         console.error("Error fetching evidence:", error);
       } finally {
@@ -25,48 +39,47 @@ export default function Evidence() {
     fetchEvidence();
   }, []);
 
-  // Fisher-Yates shuffle algorithm to randomize array
-  const shuffleArray = (array) => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
+  const handleDone = () => {
+    navigate("/chat");
   };
 
   if (loading) {
-    return <div>Loading...</div>; // Show loading state while fetching data
+    return <div>Loading...</div>;
   }
 
-  if (evidence.length === 0) {
-    return <div>No evidence found</div>; // Handle case where no evidence is returned
-  }
+  const slots = unlocked ? evidence : [0, 1, 2, 3];
 
   return (
     <div className="page evidence-page">
-      {/* Top half: Evidence grid */}
       <div className="evidence-grid">
-        {evidence.map((item, index) => (
+        {slots.map((item, index) => (
           <div className="evidence-card" key={index}>
-            <div className="evidence-frame">
-              <img src={item.image} alt={"Evidence Image"}/>
+            <div className={`evidence-frame ${!unlocked ? "locked-slot" : ""}`}>
+              {unlocked ? (
+                <img src={item.image} alt="Evidence" />
+              ) : (
+                <div className="locked-inner">
+                  <span className="locked-icon">🔒</span>
+                </div>
+              )}
             </div>
           </div>
         ))}
       </div>
 
-      {/* Bottom half: Descriptions */}
       <div className="description-frame">
-        {evidence.map((item, index) => (
+        {slots.map((item, index) => (
           <div className="description-item" key={index}>
-            <p>{item.summaryTemplate}</p>
+            {unlocked ? (
+              <p>{item.summaryTemplate}</p>
+            ) : (
+              <p className="locked-text">Evidence locked – uncover clues first.</p>
+            )}
           </div>
         ))}
       </div>
 
-      {/* Done button */}
-      <button className="done-button">
+      <button className="done-button" onClick={handleDone}>
         Done
       </button>
     </div>
