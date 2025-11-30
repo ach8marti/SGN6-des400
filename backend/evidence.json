@@ -91,18 +91,18 @@
       }
     },
     {
-      "id": "E8",
-      "title": "Burner Phone Records",
-      "type": "document",
-      "slotType": "DIGITAL_EVIDENCE",
-      "revealedWhen": "event.digital_forensics",
-      "summaryTemplate": "Disposable phone purchased by [SUSPECT_NAME] was used to contact the victim",
-      "assignment": {
-        "targetCount": 1,
-        "filters": ["canBeKiller=true"],
-        "exclusive": true
-      }
-    },
+        "id": "E8",
+        "title": "Burned Photo Fragment",
+        "type": "object",
+        "slotType": "PHYSICAL_LINK",
+        "revealedWhen": "event.scene_analysis",
+        "summaryTemplate": "A partially burned photo showing [SUSPECT_NAME] with the victim was found hidden among the debris",
+        "assignment": {
+          "targetCount": 1,
+          "filters": ["canBeKiller=true"],
+          "exclusive": true
+        }
+      },      
     {
       "id": "E9",
       "title": "Secret Relationship Evidence",
@@ -207,6 +207,6 @@
           "exclusive": true
         }
       }
-      
+    
   ]
   
