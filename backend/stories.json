@@ -1,0 +1,46 @@
+[
+  {
+    "id": "uni_group",
+    "type": "university",
+    "title": "Dorm Group Chat",
+    "openingParagraphs": [
+      "Victim was found collapsed near the back gate of the university dorm at 2:14 AM. Hours before, she messaged the dorm group chat saying she felt followed, but no one replied. The message remained unread as she was later discovered unconscious beside her phone.",
+      "You were the last person she privately contacted. To uncover what happened, you must access her phone and revisit the group chat — someone from that dorm circle might be hiding something."
+    ],
+    "passcodeHintParagraph": [
+      "If I had to guess… students often use important personal dates. The victim’s student ID card in her wallet shows her date of birth: *June 21, 2004*. She always joked that she used it for everything — even her locker code.",
+      "*A six–digit number tied to that date should be the key.*"
+    ],
+    "passcode": "062104"
+  },
+
+  {
+    "id": "office_group",
+    "type": "office",
+    "title": "After Hours at the Office",
+    "openingParagraphs": [
+      "The victim stayed late almost every night during the project deadline. Tension had grown in the team — disputes over workload, concerns about layoffs, and arguments about who would take responsibility if things fell apart.",
+      "At 1:53 AM, the security guard found her unconscious in the meeting room. Her office phone kept receiving messages from the ‘Project-Final’ group. You've been granted temporary access to her device — the truth is somewhere in that chat history."
+    ],
+    "passcodeHintParagraph": [
+      "Office folks usually rely on numbers they see every day. Her desk note shows the official *project kickoff date: November 25, 2023*. She used that date as the Wi-Fi password once — wouldn't be surprising if she reused it here.",
+      "*Convert that date into a six–digit passcode.*"
+    ],
+    "passcode": "112523"
+  },
+
+  {
+    "id": "village_line",
+    "type": "neighborhood",
+    "title": "The Neighborhood Line Group",
+    "openingParagraphs": [
+      "The neighborhood Line group used to be harmless — lost pets, garage sale posts, and the usual gossip. Recently, however, arguments escalated and neighbors grew distrustful of one another.",
+      "Last night, the victim posted a blurry photo and wrote: “If anything happens to me, it’s someone from this group.” Minutes later, emergency sirens echoed outside her home. She’s now in critical condition — and the answer lies somewhere in that chat."
+    ],
+    "passcodeHintParagraph": [
+      "People at home rarely complicate their passwords. A sticky note on her fridge listed the date she moved into the house: *July 20, 2018*. It was circled twice — clearly important to her.",
+      "*Try converting that date into a six–digit code.*"
+    ],
+    "passcode": "072018"
+  }
+]

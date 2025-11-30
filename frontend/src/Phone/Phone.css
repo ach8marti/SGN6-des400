@@ -58,11 +58,22 @@
 
 /* === RIGHT: TEXT BOX === */
 .lock-text-box {
-  width: 450px;
-  height: 400px;
+  width: 520px;          /* bigger box */
+  height: 450px;         /* taller box */
   background: rgba(0, 0, 0, 0.65);
   border-radius: 20px;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(3px);
+  padding: 24px 28px;
+  overflow-y: auto;      /* ถ้ายาวมากให้ scroll */
+}
+
+/* ข้อความเนื้อเรื่อง */
+.story-text {
+  padding: 4px;          /* padding เบา ๆ ข้างใน */
+  font-size: 16px;       /* เล็กลง ไม่ล้นกล่องง่าย */
+  line-height: 1.5;
+  color: #fff;
+  font-family: "Special Elite", cursive;
 }
 
 /* === NEXT BUTTON === */
@@ -251,8 +262,8 @@
   }
 }
 
+/* === LOCK VARIABLES FOR RESIZE === */
 .lock-phone {
-  /* tweak these to resize instantly */
   --title-size: 25px;   /* Enter Passcode font-size */
   --key-size: 70px;     /* number key diameter */
   --key-font: 24px;     /* number text size */
@@ -287,259 +298,7 @@
   height: var(--dot-size) !important;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Special+Elite&display=swap");
-
-/* === PAGE LAYOUT === */
-.lock-page {
-  background: url("/pics/Bedroom.jpg") no-repeat center center fixed;
-  background-size: cover;
-  font-family: "Special Elite", cursive;
-  color: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 120px;
-  height: 100vh;
-  position: relative;
-  overflow: hidden;
-  padding: 0 40px;
-}
-
-/* === LEFT: PHONE FRAME === */
-.lock-phone {
-  position: relative;
-  width: 350px;
-  height: 620px;
-  background: #383444;
-  border-radius: 35px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-  overflow: hidden;
-}
-
-/* phone wallpaper area */
-.lock-phone-screen {
-  width: 100%;
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  border-radius: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding-top: 45px;
-}
-
-/* time + message text (optional) */
-.lock-time {
-  font-size: 70px;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
-  margin: 0;
-}
-
-.messages {
-  font-size: 25px;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
-  margin: 0;
-}
-
-/* === RIGHT: TEXT BOX === */
-.lock-text-box {
-  width: 450px;
-  height: 400px;
-  background: rgba(0, 0, 0, 0.65);
-  border-radius: 20px;
-  backdrop-filter: blur(2px);
-}
-
-/* === NEXT BUTTON === */
-.next-button {
-  position: absolute;
-  bottom: 50px;
-  right: 70px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 30px;
-  cursor: pointer;
-  transition: color 0.3s, text-shadow 0.3s;
-}
-
-.next-button:hover {
-  color: #ff4444;
-  text-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
-}
-
-.arrow {
-  font-size: 45px;
-  line-height: 0;
-  margin-top: -3px;
-}
-
-/* === PASSCODE SECTION === */
-.passcode-wrap {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
-  width: 100%;
-  text-align: center;
-}
-
-.passcode-title {
-  font-size: 12px;
-  line-height: 1.3;
-  text-align: center;
-  letter-spacing: 1px;
-  color: #fff;
-  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
-}
-
-/* dots row */
-.passcode-dots {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-}
-
-.dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  border: 1.5px solid rgba(255, 255, 255, 0.7);
-  background: rgba(68, 62, 62, 0.25);
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.4);
-}
-
-/* === NUMPAD GRID === */
-.numpad {
-  width: 85%;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px 20px; /* row gap | column gap */
-  margin-top: 40px;
-  justify-items: center;
-}
-
-/* circular number keys */
-.key {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  font-size: 24px;
-  line-height: 1;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  background: rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(3px);
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
-  display: grid;
-  place-items: center;
-  text-align: center;
-  user-select: none;
-  transition: transform 0.1s ease;
-}
-
-.key:hover {
-  transform: scale(0.97);
-}
-
-.key.zero {
-  grid-column: 2 / span 1;
-}
-
-/* smaller rectangle keys (Delete / Clear / Enter) */
-.key.small {
-  width: 60px;
-  height: 36px;
-  border: none;
-  border-radius: 10px;
-  font-size: 14px;
-  color: #fff;
-  background: transparent;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
-  grid-column: 3 / span 1;
-  align-self: center;
-  transition: color 0.25s ease, text-shadow 0.25s ease, transform 0.1s ease;
-}
-
-.key.small:hover {
-  color: #ff4444; /* only text turns red */
-  text-shadow: 0 0 8px rgba(255, 68, 68, 0.8);
-  cursor: pointer;
-}
-
-.key.small:active {
-  transform: scale(0.95);
-  opacity: 0.85;
-}
-
-/* spacing between rows */
-.numpad > .key:nth-child(1),
-.numpad > .key:nth-child(2),
-.numpad > .key:nth-child(3) {
-  margin-top: 0;
-}
-
-.numpad > .key:nth-child(4),
-.numpad > .key:nth-child(5),
-.numpad > .key:nth-child(6) {
-  margin-top: 5px;
-}
-
-.numpad > .key:nth-child(7),
-.numpad > .key:nth-child(8),
-.numpad > .key:nth-child(9) {
-  margin-top: 5px;
-}
-
-.numpad > .key.zero,
-.numpad > .key.small {
-  margin-top: 5px;
-}
-
-/* === RESPONSIVE === */
-@media (max-width: 480px) {
-  .lock-phone {
-    width: 300px;
-    height: 550px;
-  }
-
-  .passcode-title {
-    font-size: 20px;
-  }
-
-  .numpad {
-    width: 88%;
-    gap: 14px;
-  }
-
-  .key {
-    width: 60px;
-    height: 60px;
-    font-size: 20px;
-  }
-
-  .key.small {
-    width: 50px;
-    height: 30px;
-    font-size: 12px;
-  }
-
-  .next-button {
-    font-size: 24px;
-    right: 40px;
-    bottom: 40px;
-  }
-
-  .arrow {
-    font-size: 36px;
-  }
-}
-
+/* === CHAT / MESSAGE SCREEN (สำหรับหน้า Chat ในอนาคต) === */
 .chat-input-container {
   width: 100%;
   display: flex;
@@ -570,7 +329,7 @@
   background: #46434a;
 }
 
-/* === CHAT SCREEN BASE === */
+/* CHAT SCREEN BASE */
 .chat-screen {
   background: #000;
   width: 100%;
@@ -583,7 +342,7 @@
   justify-content: space-between;
 }
 
-/* === TOP GREY STRIP (HEADER) === */
+/* TOP GREY STRIP (HEADER) */
 .chat-header {
   position: absolute;
   top: 0;
@@ -622,7 +381,7 @@
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
 }
 
-/* === BOTTOM GREY STRIP (FOOTER) === */
+/* BOTTOM GREY STRIP (FOOTER) */
 .chat-footer {
   position: absolute;
   bottom: 0;
@@ -636,7 +395,7 @@
   box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.4);
 }
 
-/* === INPUT BOX === */
+/* INPUT BOX (ซ้ำกับด้านบนเพื่อใช้ร่วมกัน) */
 .chat-input-box {
   width: 85%;
   height: 42px;
@@ -657,40 +416,4 @@
 
 .chat-input-box:hover {
   background: #46434a;
-}
-
-.lock-phone {
-  /* tweak these to resize instantly */
-  --title-size: 25px;   /* Enter Passcode font-size */
-  --key-size: 70px;     /* number key diameter */
-  --key-font: 24px;     /* number text size */
-  --dot-size: 8px;      /* dot diameter */
-}
-
-/* Title — fully scoped and forced */
-.lock-phone .lock-phone-screen .passcode-wrap .passcode-title {
-  font-size: var(--title-size) !important;
-  line-height: 2.5 !important;
-}
-
-/* Number keys (perfect circles) */
-.lock-phone .numpad .key {
-  width: var(--key-size) !important;
-  height: var(--key-size) !important;
-  font-size: var(--key-font) !important;
-  border-radius: 50% !important;
-}
-
-/* Small action keys (rectangles) */
-.lock-phone .numpad .key.small {
-  width: calc(var(--key-size) - 10px) !important;
-  height: 36px !important;
-  font-size: 14px !important;
-  border-radius: 10px !important;
-}
-
-/* Dots */
-.lock-phone .passcode-dots .dot {
-  width: var(--dot-size) !important;
-  height: var(--dot-size) !important;
 }

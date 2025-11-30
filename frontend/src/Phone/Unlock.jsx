@@ -1,50 +1,139 @@
-import "./Phone.css"; // your CSS file that includes the snippet you shared + the styles above
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Phone.css";
 
-export default function LockScreenUI() {
-    return (
-      <div className="lock-page">
-        {/* LEFT: Phone */}
-        <div className="lock-phone" aria-label="Phone lock screen">
-          <div
-            className="lock-phone-screen"
-            style={{ backgroundImage: "url('/pics/Wallpaper.jpg')" }}
-          >
-            {/* Header + fixed dots */}
-            <div className="passcode-wrap">
-              <div className="passcode-title">Enter Passcode</div>
-              <div className="passcode-dots" aria-hidden="true">
-               <span className="dot" />
-               <span className="dot" />
-                <span className="dot" />
-                <span className="dot" />
-                <span className="dot" />
-                <span className="dot" />
+export default function Unlock() {
+  const navigate = useNavigate();
+
+  const [story, setStory] = useState(null);
+  const [input, setInput] = useState("");
+  const [attempts, setAttempts] = useState(0);
+  const [errorMsg, setErrorMsg] = useState("");
+
+  // โหลด story จาก localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem("currentStory");
+    if (!saved) {
+      // ถ้าไม่มี story เลย ให้กลับไป intro ใหม่
+      navigate("/lock");
+      return;
+    }
+    setStory(JSON.parse(saved));
+  }, [navigate]);
+
+  if (!story) {
+    // ระหว่างกำลัง redirect ไม่ต้องโชว์อะไรเยอะ
+    return null;
+  }
+
+  const passcode = story.passcode; // ต้องมีใน stories.json เช่น "062104"
+  const hintParas = story.passcodeHintParagraph || [];
+
+  const checkPasscode = (code) => {
+    if (code === passcode) {
+      // ถูกรหัส → ไปหน้า MessageApp
+      navigate("/messages", { state: { story } });
+    } else {
+      // ผิด → เพิ่ม attempts
+      setAttempts((prev) => {
+        const next = prev + 1;
+        if (next >= 5) {
+          navigate("/bad-end");
+        }
+        return next;
+      });
+
+      setInput("");
+      setErrorMsg("Incorrect passcode.");
+      setTimeout(() => setErrorMsg(""), 1500);
+    }
+  };
+
+  const handleDigitClick = (digit) => {
+    if (input.length >= 6) return;
+
+    const newInput = input + digit;
+    setInput(newInput);
+
+    if (newInput.length === 6) {
+      checkPasscode(newInput);
+    }
+  };
+
+  const handleDelete = () => {
+    setInput((prev) => prev.slice(0, -1));
+  };
+
+  return (
+    <div className="lock-page">
+      {/* LEFT: phone lock UI */}
+      <div className="lock-phone" aria-label="Phone lock screen">
+        <div
+          className="lock-phone-screen"
+          style={{ backgroundImage: "url('/pics/Wallpaper.jpg')" }}
+        >
+          <div className="passcode-wrap">
+            <div className="passcode-title">Enter Passcode</div>
+            <div className="passcode-dots" aria-hidden="true">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <span
+                  key={i}
+                  className="dot"
+                  style={{
+                    background:
+                      i < input.length
+                        ? "rgba(255,255,255,0.9)"
+                        : "rgba(68, 62, 62, 0.25)",
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Numpad */}
+          <div className="numpad" aria-hidden="true">
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => (
+              <div
+                key={n}
+                className="key"
+                onClick={() => handleDigitClick(String(n))}
+              >
+                {n}
               </div>
+            ))}
+            <div /> {/* spacer */}
+            <div className="key zero" onClick={() => handleDigitClick("0")}>
+              0
             </div>
-  
-            {/* Static numpad */}
-            <div className="numpad" aria-hidden="true">
-              <div className="key">1</div>
-              <div className="key">2</div>
-              <div className="key">3</div>
-              <div className="key">4</div>
-              <div className="key">5</div>
-              <div className="key">6</div>
-              <div className="key">7</div>
-              <div className="key">8</div>
-              <div className="key">9</div>
-              <div /> {/* spacer */}
-              <div className="key zero">0</div>
-              <div className="key small">Delete</div>
+            <div className="key small" onClick={handleDelete}>
+              Delete
             </div>
-  
           </div>
         </div>
-  
-        {/* RIGHT side box you already have */}
-        <div className="lock-text-box" />
-  
       </div>
-    );
-  }
-  
+
+      {/* RIGHT: hint + attempts */}
+      <div className="lock-text-box">
+        <div className="story-text">
+          <p style={{ opacity: 0.8, fontSize: "14px", marginBottom: "8px" }}>
+            Passcode Hint
+          </p>
+
+          {hintParas.length > 0 ? (
+            hintParas.map((p, idx) => <p key={idx}>{p}</p>)
+          ) : (
+            <p>No hint available.</p>
+          )}
+
+          <p style={{ marginTop: "16px", opacity: 0.85 }}>
+            Attempts: {attempts} / 5
+          </p>
+
+          {errorMsg && (
+            <p style={{ color: "#ff6666", marginTop: "8px" }}>{errorMsg}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

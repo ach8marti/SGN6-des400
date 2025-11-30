@@ -1,36 +1,58 @@
-// index.js
 const express = require("express");
 const cors = require("cors");
+const fs = require("fs");
 const path = require("path");
-const {
-  getRandomizedSuspectsAll,
-  getRandomizedSuspectsForGame,
-} = require("./randomizeSuspects");
+const randomizeSuspects = require("./randomizeSuspects");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// base JSON ดิบ
-app.get("/api/suspects/raw", (req, res) => {
-  res.sendFile(path.join(__dirname, "suspects.json"));
+function readJson(fileName) {
+  const filePath = path.join(__dirname, fileName);
+  const raw = fs.readFileSync(filePath, "utf-8");
+  return JSON.parse(raw);
+}
+
+app.get("/api/story", (req, res) => {
+  try {
+    const stories = readJson("stories.json");
+    if (!Array.isArray(stories) || stories.length === 0) {
+      return res.status(500).json({ error: "No stories available" });
+    }
+
+    const chosen = stories[Math.floor(Math.random() * stories.length)];
+    return res.json(chosen);
+  } catch (err) {
+    console.error("Error in /api/story:", err);
+    return res.status(500).json({ error: "Failed to load story file" });
+  }
 });
 
-// random ทั้ง 10 คน (เอาไว้ debug ถ้าอยากดู)
-app.get("/api/suspects/random-all", (req, res) => {
-  const all = getRandomizedSuspectsAll();
-  res.json(all);
-});
-
-// 👉 ใช้ในเกม: ส่งชุดที่คัดมาแล้ว (ธรรมดา 5 คน + พยายามมี high/mid/low ครบ)
 app.get("/api/suspects", (req, res) => {
-  const gameSuspects = getRandomizedSuspectsForGame(5);
-  res.json(gameSuspects);
+  try {
+    const storyType = req.query.type || "university";
+    const suspects = readJson("suspects.json");
+    if (!Array.isArray(suspects) || suspects.length === 0) {
+      return res.status(500).json({ error: "No suspects available" });
+    }
+
+    const randomized = randomizeSuspects(suspects, storyType);
+    return res.json(randomized);
+  } catch (err) {
+    console.error("Error in /api/suspects:", err);
+    return res.status(500).json({ error: "Failed to load suspects" });
+  }
 });
 
-// evidence ดิบ
 app.get("/api/evidence", (req, res) => {
-  res.sendFile(path.join(__dirname, "evidence.json"));
+  try {
+    const evidence = readJson("evidence.json");
+    return res.json(evidence);
+  } catch (err) {
+    console.error("Error in /api/evidence:", err);
+    return res.status(500).json({ error: "Failed to load evidence" });
+  }
 });
 
 const PORT = 3001;

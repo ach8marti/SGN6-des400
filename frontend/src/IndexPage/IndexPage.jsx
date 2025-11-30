@@ -1,21 +1,19 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./IndexPage.css";
 
 export default function IndexPage() {
-  const start = () => {
-    alert("Game Starting...");
-  };
+  const navigate = useNavigate();
 
-  const quit = () => {
-    alert("Quit Game");
+  const handleStart = () => {
+    navigate("/lock");
   };
 
   return (
-    <div className="menu-page">
-      <div className="menu">
-        <span id="start" onClick={start}>START</span>
-        <span id="quit" onClick={quit}>Quit</span>
-      </div>
+    <div className="index-page">
+      <button className="start-button" onClick={handleStart}>
+        START
+      </button>
     </div>
   );
 }
