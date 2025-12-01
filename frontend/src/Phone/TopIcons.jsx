@@ -20,22 +20,14 @@ export default function TopIcons() {
   return (
     <div className="top-icons">
       <button className="icon-button" onClick={goSuspects}>
-        <img
-          src="/icons/suspects.png"
-          alt="suspects"
-          className="icon-img"
-        />
+        <i className="fa-solid fa-magnifying-glass"></i>
       </button>
 
       <button
         className={`icon-button ${!evidenceUnlocked ? "locked" : ""}`}
         onClick={goEvidence}
       >
-        <img
-          src="/icons/evidence.png"
-          alt="evidence"
-          className="icon-img"
-        />
+        <i className="fa-solid fa-folder"></i>
         {!evidenceUnlocked && <span className="icon-lock-overlay">🔒</span>}
       </button>
     </div>
