@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Character.css";
+import TopIcons from "../Phone/TopIcons";
 
 export default function Character() {
   const [suspects, setSuspects] = useState([]);
@@ -37,6 +38,7 @@ export default function Character() {
 
   return (
     <div className="character-page">
+      <TopIcons />
       <h1 className="title">Suspects</h1>
 
       <div className="suspect-grid">

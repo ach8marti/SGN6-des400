@@ -9,32 +9,40 @@ export default function Unlock() {
   const [input, setInput] = useState("");
   const [attempts, setAttempts] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1); // Track which hint/passcode pair is selected
 
-  // โหลด story จาก localStorage
+  // Load story from localStorage
   useEffect(() => {
     const saved = localStorage.getItem("currentStory");
     if (!saved) {
-      // ถ้าไม่มี story เลย ให้กลับไป intro ใหม่
       navigate("/lock");
       return;
     }
-    setStory(JSON.parse(saved));
+    
+    const parsedStory = JSON.parse(saved);
+    setStory(parsedStory);
+    
+    // Randomly select one hint/passcode pair when story loads
+    if (parsedStory && parsedStory.passcode && parsedStory.passcode.length > 0) {
+      const randomIdx = Math.floor(Math.random() * parsedStory.passcode.length);
+      setSelectedIndex(randomIdx);
+    }
   }, [navigate]);
 
-  if (!story) {
-    // ระหว่างกำลัง redirect ไม่ต้องโชว์อะไรเยอะ
-    return null;
+  if (!story || selectedIndex === -1) {
+    return null; // Or a loading spinner
   }
 
-  const passcode = story.passcode; // ต้องมีใน stories.json เช่น "062104"
-  const hintParas = story.passcodeHintParagraph || [];
+  // Get the selected passcode and hint paragraph
+  const selectedPasscode = story.passcode[selectedIndex];
+  const selectedHintParagraph = story.passcodeHintParagraph[selectedIndex];
 
   const checkPasscode = (code) => {
-    if (code === passcode) {
-      // ถูกรหัส → ไปหน้า MessageApp
+    if (code === selectedPasscode) {
+      // Correct passcode → go to MessageApp
       navigate("/messages", { state: { story } });
     } else {
-      // ผิด → เพิ่ม attempts
+      // Wrong → increment attempts
       setAttempts((prev) => {
         const next = prev + 1;
         if (next >= 5) {
@@ -119,8 +127,8 @@ export default function Unlock() {
             Passcode Hint
           </p>
 
-          {hintParas.length > 0 ? (
-            hintParas.map((p, idx) => <p key={idx}>{p}</p>)
+          {selectedHintParagraph ? (
+            <p>{selectedHintParagraph}</p>
           ) : (
             <p>No hint available.</p>
           )}

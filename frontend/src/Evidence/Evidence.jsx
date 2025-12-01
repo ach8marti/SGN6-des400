@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Evidence.css";
+import TopIcons from "../Phone/TopIcons.jsx";
 
 export default function Evidence() {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ export default function Evidence() {
 
   return (
     <div className="page evidence-page">
+      <TopIcons />
       <div className="evidence-grid">
         {slots.map((item, index) => (
           <div className="evidence-card" key={index}>
