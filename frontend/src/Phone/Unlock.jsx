@@ -9,7 +9,7 @@ export default function Unlock() {
   const [input, setInput] = useState("");
   const [attempts, setAttempts] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(-1); // Track which hint/passcode pair is selected
+  const [selectedIndex, setSelectedIndex] = useState(-1);
 
   // Load story from localStorage
   useEffect(() => {
