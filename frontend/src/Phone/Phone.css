@@ -29,7 +29,7 @@
   --title-size: 25px;
   --key-size: 70px;
   --key-font: 24px;
-  --dot-size: 8px;
+  --dot-size: 10px;
 }
 
 /* wallpaper */
@@ -91,21 +91,22 @@
 
 /* === PASSCODE SECTION === */
 .passcode-wrap {
-  margin-top: 50px;
+  margin-top: 80px;
   align-items: center;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 14px;
 }
 
 .passcode-title {
   font-size: var(--title-size);
   text-shadow: 0 4px 16px rgba(0,0,0,0.8);
+  margin-bottom: 4px;
 }
 
 .passcode-dots {
   display: flex;
-  gap: 6px;
+  gap: 10px;
 }
 
 .dot {
@@ -116,13 +117,15 @@
   background: rgba(68,62,62,0.25);
 }
 
-/* NUMPAD */
+/* NUMPAD - CENTERED */
 .numpad {
-  width: 85%;
-  margin-top: 40px;
+  width: 100%;
+  margin-top: 60px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px 20px;
+  gap: 20px;
+  padding: 0 35px;
+  justify-items: center;
 }
 
 .key {
@@ -135,16 +138,24 @@
   display: grid;
   place-items: center;
   cursor: pointer;
-  transition: transform .1s ease;
+  transition: transform .1s ease, background .2s ease;
 }
 
-.key:hover { transform: scale(.97); }
+.key:hover {
+  transform: scale(.97);
+  background: rgba(0,0,0,0.5);
+}
+
+.key.zero {
+  grid-column: 2; /* Center the 0 button */
+}
 
 .key.small {
   width: calc(var(--key-size) - 10px);
-  height: 36px;
-  border-radius: 10px;
+  height: 40px;
+  border-radius: 12px;
   font-size: 14px;
+  grid-column: 3; /* Delete button on the right */
 }
 
 /* === TOP ICONS (SUSPECTS + EVIDENCE) === */
@@ -168,7 +179,7 @@
   cursor: pointer;
   backdrop-filter: blur(4px);
   transition: 0.2s;
-  color: white;           /* make icon white */
+  color: white;
   font-size: 18px;
 }
 
@@ -211,7 +222,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;         
+  width: 100%;
 }
 
 .chat-back-arrow {
@@ -227,7 +238,7 @@
 }
 
 .chat-user-icon {
-  position: absolute;               /* Move to vertical middle */
+  position: absolute;
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -235,7 +246,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 /* FOOTER */
 .chat-footer {

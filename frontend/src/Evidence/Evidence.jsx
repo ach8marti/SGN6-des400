@@ -75,7 +75,7 @@ export default function Evidence() {
             {unlocked ? (
               <p>{item.summaryTemplate}</p>
             ) : (
-              <p className="locked-text">Evidence locked – uncover clues first.</p>
+              <p className="locked-text">EVIDENCE LOCKED</p>
             )}
           </div>
         ))}

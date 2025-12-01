@@ -40,7 +40,7 @@ export default function MessageApp() {
           {/* MESSAGE LIST */}
           <div
             style={{
-              marginTop: "100px",
+              marginTop: "30px",
               width: "100%",
               padding: "0 24px",
             }}
@@ -54,6 +54,13 @@ export default function MessageApp() {
                 marginBottom: "12px",
                 cursor: "pointer",
                 boxShadow: "0 4px 12px rgba(0,0,0,0.6)",
+                transition: "background 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#3a383f";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "#2f2d33";
               }}
             >
               <div
@@ -84,7 +91,7 @@ export default function MessageApp() {
           <p>You're now inside the victim's phone.</p>
           <p>
             Start by opening the main group chat. Someone in there knows more
-            than they’re saying.
+            than they're saying.
           </p>
         </div>
       </div>
