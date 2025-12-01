@@ -22,7 +22,7 @@ export default function Unlock() {
     const parsedStory = JSON.parse(saved);
     setStory(parsedStory);
     
-    // Randomly select one hint/passcode pair when story loads
+    // Randomly select one hint/passcode pair when story load
     if (parsedStory && parsedStory.passcode && parsedStory.passcode.length > 0) {
       const randomIdx = Math.floor(Math.random() * parsedStory.passcode.length);
       setSelectedIndex(randomIdx);
