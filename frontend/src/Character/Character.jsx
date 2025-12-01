@@ -44,17 +44,23 @@ export default function Character() {
           <div className="suspect-card" key={index}>
             <div className="suspect-img">
               {suspect && (
-                <img src={suspect.image} alt={suspect.name || "suspect"} />
+                <img 
+                  src={suspect.image}
+                  alt={suspect.name || "suspect"} 
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${suspect.image}`);
+                  }}
+                />
               )}
             </div>
 
             <div className="suspect-info">
-              <p>{suspect?.name || "Name"}</p>
+              <p>{suspect?.name || "-"}</p>
               <p>Role: {suspect?.role || "-"}</p>
               <p>Trust: {suspect?.trust || "-"}</p>
               <p>Relation: {suspect?.relation || "-"}</p>
               <p>Suspicion: {suspect?.suspicion || "-"}</p>
-              <p>Trait: {suspect?.traits || "-"}</p>
+              <p>Trait: {suspect?.traits?.join(", ") || "-"}</p>
             </div>
           </div>
         ))}
