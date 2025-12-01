@@ -28,7 +28,7 @@
 .evidence-card {
   width: 110px;
   height: 110px;
-  background: rgba(255,255,255,0.85);
+  background: rgba(58, 57, 57, 0.85);
 
   /* Ensure full centering */
   display: flex;
@@ -53,9 +53,10 @@
 }
 
 .evidence-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: 90%;         /* smaller image */
+  height: 90%;        /* smaller image */
+  object-fit: contain;
+  border-radius: 6px; /* optional, looks cleaner */
 }
 
 /* LOCKED SLOT */
@@ -100,12 +101,10 @@
 .description-item {
   width: 100%;
   padding: 12px 20px;
-  background: rgba(255,255,255,0.85);
-  color: #444;
+  background: rgba(58, 57, 57, 0.85);
+  color: #ffffff;
   font-size: 14px;
   border-radius: 8px;
-
-  /* Make text perfectly centered */
   text-align: center;
   display: flex;
   justify-content: center;
@@ -113,7 +112,7 @@
 }
 
 .locked-text {
-  color: #C12020;
+  color: #050505;
   font-style: italic;
 }
 
