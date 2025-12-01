@@ -211,6 +211,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;         
 }
 
 .chat-back-arrow {
@@ -226,13 +227,15 @@
 }
 
 .chat-user-icon {
-  position: absolute;
-  right: 24px;
-  top: 15px;
+  position: absolute;               /* Move to vertical middle */
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
+
 
 /* FOOTER */
 .chat-footer {
@@ -262,4 +265,9 @@
   color: #fff;
   text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
   margin: 0;
+}
+
+.icon-button .fa-folder {
+  color: #ffffff;
+  filter: brightness(2);
 }

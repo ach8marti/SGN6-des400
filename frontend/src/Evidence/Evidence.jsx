@@ -41,7 +41,7 @@ export default function Evidence() {
   }, []);
 
   const handleDone = () => {
-    navigate("/chat");
+    navigate("/messages");
   };
 
   if (loading) {

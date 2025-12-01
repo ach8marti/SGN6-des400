@@ -29,15 +29,15 @@ export default function MessageApp() {
     <div className="lock-page">
       <TopIcons />
 
+      {/* PHONE FRAME */}
       <div className="lock-phone">
-        <div
-          className="lock-phone-screen"
-          style={{ backgroundColor: "#000" }}
-        >
+        <div className="chat-screen">
+          {/* HEADER BAR */}
           <div className="chat-header">
             <div className="messages">Messages</div>
           </div>
 
+          {/* MESSAGE LIST */}
           <div
             style={{
               marginTop: "100px",
@@ -78,6 +78,7 @@ export default function MessageApp() {
         </div>
       </div>
 
+      {/* RIGHT SIDE STORY BOX */}
       <div className="lock-text-box">
         <div className="story-text">
           <p>You're now inside the victim's phone.</p>

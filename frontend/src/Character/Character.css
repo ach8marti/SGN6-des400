@@ -23,7 +23,7 @@
   z-index: 0;
 }
 
-/* ให้ content ลอยอยู่เหนือ overlay */
+/* content floats above overlay */
 .title,
 .suspect-grid,
 .back-button {
@@ -39,30 +39,32 @@
   text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
 }
 
-/* Grid 2 คอลัมน์, แถวล่าง 1 การ์ดกลาง */
+/* Grid 2 columns, last card centered bottom */
 .suspect-grid {
   display: grid;
   grid-template-columns: repeat(2, auto);
   column-gap: 70px;
   row-gap: 16px;
   justify-content: center;
+  align-items: start;  /* Changed from center to start */
   margin-bottom: 34px;
 }
 
-/* การ์ดใบที่ 5 ให้อยู่กลางล่าง */
+/* 5th card centered across both columns */
 .suspect-grid > .suspect-card:nth-child(5) {
   grid-column: 1 / span 2;
   justify-self: center;
 }
 
-/* การ์ดตัวละคร */
+/* Suspect card: image + info centered within its own frame */
 .suspect-card {
   display: flex;
   gap: 12px;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
 }
 
-/* กล่องรูป */
+/* Image box */
 .suspect-img {
   width: 120px;
   height: 120px;
@@ -71,6 +73,7 @@
   border: 2px solid #222;
   overflow: hidden;
   box-shadow: 0 6px 14px rgba(0, 0, 0, 0.7);
+  flex-shrink: 0;  /* Prevent image from shrinking */
 }
 
 .suspect-img img {
@@ -79,41 +82,42 @@
   object-fit: cover;
 }
 
-/* กล่องข้อมูล – ใช้ความสูงอัตโนมัติ ไม่บังคับ fixed */
+/* Info box – text centered vertically with more space */
 .suspect-info {
   width: 380px;
-  min-height: 130px;               /* พื้นฐานให้ไม่เตี้ยไป */
+  min-height: 145px;  /* Taller frame for more breathing room */
   background: rgba(90, 30, 30, 0.85);
   border-radius: 25px;
-  padding: 8px 18px 10px;
+  padding: 15px 18px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;  /* Center content vertically */
   align-items: flex-start;
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 1.4;  /* Slightly more line height */
   color: #fff;
   box-sizing: border-box;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.75);
 }
 
-/* ชื่อด้านบน */
+/* Name line */
 .suspect-info p:first-child {
   font-size: 18px;
   font-weight: 700;
-  margin-bottom: 3px;
+  margin-bottom: 6px;
+  margin-top: 0;
 }
 
-/* รายการบรรทัดอื่น */
+/* Bullet lines */
 .suspect-info p:not(:first-child) {
-  margin: 1px 0;
+  margin: 3px 0;
   font-size: 11px;
   padding-left: 12px;
   position: relative;
   word-wrap: break-word;
 }
 
-/* bullet เล็ก ๆ */
+/* Small bullet dot */
 .suspect-info p:not(:first-child)::before {
   content: "";
   position: absolute;
@@ -126,7 +130,7 @@
   opacity: 0.9;
 }
 
-/* ปุ่ม Back มุมซ้ายล่าง */
+/* Back button bottom-left */
 .back-button {
   position: absolute;
   left: 40px;

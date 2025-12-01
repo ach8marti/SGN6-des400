@@ -24,11 +24,10 @@ export default function TopIcons() {
       </button>
 
       <button
-        className={`icon-button ${!evidenceUnlocked ? "locked" : ""}`}
-        onClick={goEvidence}
+       className={`icon-button ${!evidenceUnlocked ? "locked" : ""}`}
+       onClick={goEvidence}
       >
-        <i className="fa-solid fa-folder"></i>
-        {!evidenceUnlocked && <span className="icon-lock-overlay">🔒</span>}
+      <i class="fa-solid fa-folder"></i>
       </button>
     </div>
   );
