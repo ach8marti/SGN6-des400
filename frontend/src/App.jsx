@@ -11,6 +11,7 @@ import Character from "./Character/Character";
 import Evidence from "./Evidence/Evidence";
 import BadEnd from "./Ending/BadEnd";
 import GoodEnd from "./Ending/GoodEnd";
+import Killer from "./Killer/Killer"; 
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/suspects" element={<Character />} />
         <Route path="/evidence" element={<Evidence />} />
+        <Route path="/killer" element={<Killer />} /> 
         <Route path="/bad-end" element={<BadEnd />} />
         <Route path="/good-end" element={<GoodEnd />} />
       </Routes>

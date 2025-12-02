@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "./Killer.css";
 
@@ -48,21 +48,22 @@ export default function Killer() {
       </div>
 
       <div className="suspect-row">
-        {suspects.map((suspect) => (
-          <div
-            key={suspect.id}
-            className={`suspect-box ${
-              selectedSuspect?.id === suspect.id ? "selected" : ""
-            }`}
-            onClick={() => handleSelectSuspect(suspect)}
-          >
-            <div className="suspect-img">
-              <img src={suspect.image} alt={suspect.name} />
-            </div>
-            <p>{suspect.name}</p>
-          </div>
-        ))}
+      {suspects.map((suspect) => (
+        <div
+          key={suspect.id}
+          className={`suspect-box ${
+        selectedSuspect?.id === suspect.id ? "selected" : ""
+       }`}
+        onClick={() => handleSelectSuspect(suspect)}
+      >
+      <div className="suspect-img">
+        <img src={suspect.image} alt={suspect.name} />
       </div>
+      <p className="suspect-name">{suspect.name}</p> {/* <- add class */}
+      </div>
+      ))}
+        </div>
+
 
       <div className="reason-box" onClick={handleReasonClick}>
         {selectedEvidence ? (
