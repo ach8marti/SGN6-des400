@@ -1,3 +1,4 @@
+// src/Phone/MessageApp.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Phone.css";
@@ -8,11 +9,14 @@ export default function MessageApp() {
   const [chatTitle, setChatTitle] = useState("Group Chat");
 
   useEffect(() => {
+    // Load the currently selected story from localStorage.
+    // This is populated earlier on the Lock screen after calling /api/story.
     const saved = localStorage.getItem("currentStory");
     if (saved) {
       try {
         const story = JSON.parse(saved);
-        if (story.title) {
+        // Use the story title as the group chat name if available.
+        if (story && story.title) {
           setChatTitle(story.title);
         }
       } catch (e) {
@@ -21,23 +25,25 @@ export default function MessageApp() {
     }
   }, []);
 
+  // Navigate into the main group chat view.
   const openChat = () => {
     navigate("/chat");
   };
 
   return (
     <div className="lock-page">
+      {/* Top-right icons: suspects / evidence shortcuts */}
       <TopIcons />
 
-      {/* PHONE FRAME */}
+      {/* LEFT: phone frame with messages list */}
       <div className="lock-phone">
         <div className="chat-screen">
-          {/* HEADER BAR */}
+          {/* Top header bar inside the phone */}
           <div className="chat-header">
             <div className="messages">Messages</div>
           </div>
 
-          {/* MESSAGE LIST */}
+          {/* Message list (currently a single group chat entry) */}
           <div
             style={{
               marginTop: "30px",
@@ -85,7 +91,7 @@ export default function MessageApp() {
         </div>
       </div>
 
-      {/* RIGHT SIDE STORY BOX */}
+      {/* RIGHT: narration / instruction panel */}
       <div className="lock-text-box">
         <div className="story-text">
           <p>You're now inside the victim's phone.</p>

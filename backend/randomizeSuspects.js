@@ -1,7 +1,20 @@
+// randomizeSuspects.js
+// ------------------------------------------------------------
+// Utility for assigning dynamic role, relation, and suspicion
+// values to suspects based on the chosen story type.
+//
+// NOTE: In the new full gameplay system, randomization must
+// happen ONLY ONCE at the start of a new game. Do not rerun 
+// this function mid-game, otherwise suspects will change roles
+// every time the API is called.
+// ------------------------------------------------------------
+
+// Returns a random element from an array
 function randomPick(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Pool of possible role values per story type
 const rolePools = {
   university: [
     "Roommate",
@@ -28,6 +41,7 @@ const rolePools = {
   ]
 };
 
+// Pool of possible relationship context per story type
 const relationPools = {
   university: [
     "Close friend from the same major.",
@@ -50,6 +64,7 @@ const relationPools = {
   ]
 };
 
+// Pool of possible suspicion hooks per story type
 const suspicionPools = {
   university: [
     "Was the last person seen walking with the victim.",
@@ -70,6 +85,7 @@ const suspicionPools = {
   ]
 };
 
+// Apply randomized fields to each suspect
 function randomizeSuspects(baseSuspects, storyType) {
   const roles = rolePools[storyType] || rolePools.university;
   const relations = relationPools[storyType] || relationPools.university;

@@ -1,0 +1,370 @@
+{
+  "uni_group": {
+    "1": {
+      "messages": [
+        {
+          "id": "m1",
+          "speaker": "Mina",
+          "text": "Can we just stop talking about this already?",
+          "time": "01:12"
+        },
+        {
+          "id": "m2",
+          "speaker": "Liam",
+          "text": "What happened? You left the dorm without saying anything.",
+          "time": "01:13"
+        },
+        {
+          "id": "m3",
+          "speaker": "Sophia",
+          "text": "You disappeared after the meeting. Are you still outside?",
+          "time": "01:15"
+        },
+        {
+          "id": "m4",
+          "speaker": "Ethan",
+          "text": "You always overreact when you’re stressed. Just come back inside.",
+          "time": "01:16"
+        },
+        {
+          "id": "m5",
+          "speaker": "Mina",
+          "text": "Seriously, you’re freaking everyone out.",
+          "time": "01:17"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "I think someone is following me near the back gate.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E1"],
+          "comment": "Strong clue about location and timeline."
+        },
+        {
+          "id": 2,
+          "text": "Relax, I just needed some fresh air.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Downplays the danger, gives fewer clues."
+        },
+        {
+          "id": 3,
+          "text": "Stop asking. I don’t owe anyone an explanation.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Makes the victim sound aggressive, but not informative."
+        }
+      ],
+      "nextPhase": 2,
+      "phaseLabel": "uni_group_phase_1"
+    },
+    "2": {
+      "messages": [
+        {
+          "id": "m6",
+          "speaker": "Sophia",
+          "text": "If you’re joking, it’s not funny anymore.",
+          "time": "01:20"
+        },
+        {
+          "id": "m7",
+          "speaker": "Liam",
+          "text": "Do you want me to come get you at the gate?",
+          "time": "01:21"
+        },
+        {
+          "id": "m8",
+          "speaker": "Mina",
+          "text": "You always make drama and then disappear.",
+          "time": "01:22"
+        },
+        {
+          "id": "m9",
+          "speaker": "Ethan",
+          "text": "Just send your live location if it’s that serious.",
+          "time": "01:23"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "I’m near the old camera by the back gate. If something happens, you’ll see it on CCTV.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E1", "E12"],
+          "comment": "Links to CCTV and timeline reconstruction."
+        },
+        {
+          "id": 2,
+          "text": "Forget it. I’ll deal with it alone.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Hides details, no new evidence."
+        },
+        {
+          "id": 3,
+          "text": "You’re all useless. I should never have texted here.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Adds tension but no concrete lead."
+        }
+      ],
+      "nextPhase": 3,
+      "phaseLabel": "uni_group_phase_2"
+    },
+    "3": {
+      "messages": [
+        {
+          "id": "m10",
+          "speaker": "System",
+          "text": "No new messages. The chat falls silent after your last text.",
+          "time": "—"
+        }
+      ],
+      "choices": [],
+      "nextPhase": null,
+      "phaseLabel": "uni_group_phase_3_end",
+      "note": "End of group-chat intro phase for university case."
+    }
+  },
+
+  "office_group": {
+    "1": {
+      "messages": [
+        {
+          "id": "m1",
+          "speaker": "Olivia",
+          "text": "We are not redoing the slides again. It’s already 1 AM.",
+          "time": "01:05"
+        },
+        {
+          "id": "m2",
+          "speaker": "John",
+          "text": "Client wants the numbers updated before tomorrow’s pitch.",
+          "time": "01:06"
+        },
+        {
+          "id": "m3",
+          "speaker": "Ethan",
+          "text": "The victim is still on the 14th floor, right?",
+          "time": "01:07"
+        },
+        {
+          "id": "m4",
+          "speaker": "Olivia",
+          "text": "Probably. They said they’d stay until the forecast model looks “perfect.”",
+          "time": "01:08"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "I’m still in the meeting room on the 14th floor. The security camera is watching me work overtime.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E1", "E12"],
+          "comment": "Connects office location, camera, and overtime condition."
+        },
+        {
+          "id": 2,
+          "text": "I went home already. You can deal with the rest.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Misleading for timeline reconstruction."
+        },
+        {
+          "id": 3,
+          "text": "Don’t ask where I am. Just send the files.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Hides position, less helpful for evidence."
+        }
+      ],
+      "nextPhase": 2,
+      "phaseLabel": "office_group_phase_1"
+    },
+    "2": {
+      "messages": [
+        {
+          "id": "m5",
+          "speaker": "John",
+          "text": "The overtime pay won’t even cover this effort.",
+          "time": "01:25"
+        },
+        {
+          "id": "m6",
+          "speaker": "Olivia",
+          "text": "You’re the one they’d promote if this project lands, you know.",
+          "time": "01:26"
+        },
+        {
+          "id": "m7",
+          "speaker": "Ethan",
+          "text": "Stop arguing. Did the victim sign the updated contract already?",
+          "time": "01:27"
+        },
+        {
+          "id": "m8",
+          "speaker": "Olivia",
+          "text": "If they walk away, we lose the client. Simple.",
+          "time": "01:28"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "The new partnership contract is still here with me. If anything happens, check who benefits from the signatures.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E4", "E6"],
+          "comment": "Strong link to financial motive and business agreement."
+        },
+        {
+          "id": 2,
+          "text": "I sent all the documents already. Nothing’s left on my desk.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Removes physical link from the office."
+        },
+        {
+          "id": 3,
+          "text": "Doesn’t matter. No one cares about this project anyway.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Adds emotional tone but no concrete clue."
+        }
+      ],
+      "nextPhase": 3,
+      "phaseLabel": "office_group_phase_2"
+    },
+    "3": {
+      "messages": [
+        {
+          "id": "m9",
+          "speaker": "System",
+          "text": "No new messages. The office group stays silent.",
+          "time": "—"
+        }
+      ],
+      "choices": [],
+      "nextPhase": null,
+      "phaseLabel": "office_group_phase_3_end",
+      "note": "End of group-chat intro phase for office case."
+    }
+  },
+
+  "village_line": {
+    "1": {
+      "messages": [
+        {
+          "id": "m1",
+          "speaker": "Noah",
+          "text": "Who left the gate open again? The dog almost ran into the street.",
+          "time": "21:07"
+        },
+        {
+          "id": "m2",
+          "speaker": "Isabella",
+          "text": "We’ve talked about this. Some people never listen.",
+          "time": "21:08"
+        },
+        {
+          "id": "m3",
+          "speaker": "Mina",
+          "text": "The victim said they saw someone standing outside their window earlier.",
+          "time": "21:09"
+        },
+        {
+          "id": "m4",
+          "speaker": "Olivia",
+          "text": "It’s probably just kids from the next street.",
+          "time": "21:10"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "If something happens to me tonight, remember: someone from this group has been watching my house.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E9", "E11"],
+          "comment": "Sets up personal motive and threat from inside the group."
+        },
+        {
+          "id": 2,
+          "text": "Everyone is overreacting. It was probably just the wind.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Downplays the danger."
+        },
+        {
+          "id": 3,
+          "text": "Please stop arguing. I’m turning off notifications.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Shuts down the conversation, no extra clues."
+        }
+      ],
+      "nextPhase": 2,
+      "phaseLabel": "village_line_phase_1"
+    },
+    "2": {
+      "messages": [
+        {
+          "id": "m5",
+          "speaker": "Noah",
+          "text": "Are you okay? The sirens went past my house.",
+          "time": "21:25"
+        },
+        {
+          "id": "m6",
+          "speaker": "Isabella",
+          "text": "I heard shouting near your place.",
+          "time": "21:26"
+        },
+        {
+          "id": "m7",
+          "speaker": "Mina",
+          "text": "You were scared of someone in this group, right? You said that before.",
+          "time": "21:27"
+        }
+      ],
+      "choices": [
+        {
+          "id": 1,
+          "text": "Check the camera on the street corner. If I don’t answer, look at who passed my house.",
+          "isCorrect": true,
+          "unlocksEvidence": ["E1", "E7"],
+          "comment": "Gives a direct link to CCTV and location-based evidence."
+        },
+        {
+          "id": 2,
+          "text": "It’s nothing. Just a misunderstanding.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Hides important details."
+        },
+        {
+          "id": 3,
+          "text": "Stop messaging. I’m done with this group.",
+          "isCorrect": false,
+          "unlocksEvidence": [],
+          "comment": "Adds tension but no lead."
+        }
+      ],
+      "nextPhase": 3,
+      "phaseLabel": "village_line_phase_2"
+    },
+    "3": {
+      "messages": [
+        {
+          "id": "m8",
+          "speaker": "System",
+          "text": "No response from the victim’s phone after the last message.",
+          "time": "—"
+        }
+      ],
+      "choices": [],
+      "nextPhase": null,
+      "phaseLabel": "village_line_phase_3_end",
+      "note": "End of group-chat intro phase for neighborhood case."
+    }
+  }
+}

@@ -1,3 +1,4 @@
+// src/Phone/Unlock.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Phone.css";
@@ -6,43 +7,121 @@ export default function Unlock() {
   const navigate = useNavigate();
 
   const [story, setStory] = useState(null);
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [input, setInput] = useState("");
   const [attempts, setAttempts] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(-1);
 
-  // Load story from localStorage
+  // Load story from localStorage and decide which passcode/hint to use
   useEffect(() => {
     const saved = localStorage.getItem("currentStory");
     if (!saved) {
       navigate("/lock");
       return;
     }
-    
-    const parsedStory = JSON.parse(saved);
-    setStory(parsedStory);
-    
-    // Randomly select one hint/passcode pair when story load
-    if (parsedStory && parsedStory.passcode && parsedStory.passcode.length > 0) {
-      const randomIdx = Math.floor(Math.random() * parsedStory.passcode.length);
-      setSelectedIndex(randomIdx);
+
+    try {
+      const parsedStory = JSON.parse(saved);
+      setStory(parsedStory);
+
+      // PRIMARY: if backend already chose one pair, use that
+      if (
+        parsedStory.selectedPasscode &&
+        parsedStory.selectedPasscodeHintParagraph
+      ) {
+        // Keep index if provided, otherwise default to 0
+        const idx =
+          typeof parsedStory.selectedPasscodeIndex === "number"
+            ? parsedStory.selectedPasscodeIndex
+            : 0;
+        setSelectedIndex(idx);
+        return;
+      }
+
+      // FALLBACK: compute a random index from passcode[] + passcodeHintParagraph[]
+      const codes = Array.isArray(parsedStory.passcode)
+        ? parsedStory.passcode
+        : [];
+      const hints = Array.isArray(parsedStory.passcodeHintParagraph)
+        ? parsedStory.passcodeHintParagraph
+        : [];
+
+      const maxPairs = Math.min(codes.length, hints.length);
+
+      if (maxPairs > 0) {
+        const randomIdx = Math.floor(Math.random() * maxPairs);
+        setSelectedIndex(randomIdx);
+      } else if (codes.length > 0) {
+        setSelectedIndex(0);
+      } else {
+        console.warn("Story has no passcode defined:", parsedStory);
+        setSelectedIndex(-1);
+      }
+    } catch (err) {
+      console.error("Failed to parse currentStory from localStorage:", err);
+      navigate("/lock");
     }
   }, [navigate]);
 
+  // Loading or invalid state
   if (!story || selectedIndex === -1) {
-    return null; // Or a loading spinner
+    return (
+      <div className="lock-page">
+        <div className="lock-phone">
+          <div
+            className="lock-phone-screen"
+            style={{ backgroundImage: "url('/pics/Wallpaper.jpg')" }}
+          >
+            <div className="passcode-wrap">
+              <div className="passcode-title">Enter Passcode</div>
+            </div>
+          </div>
+        </div>
+        <div className="lock-text-box">
+          <div className="story-text">
+            <p>Loading passcode data...</p>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Get the selected passcode and hint paragraph
-  const selectedPasscode = story.passcode[selectedIndex];
-  const selectedHintParagraph = story.passcodeHintParagraph[selectedIndex];
+  // Derive passcode + hint
+  const codes = Array.isArray(story.passcode) ? story.passcode : [];
+  const hints = Array.isArray(story.passcodeHintParagraph)
+    ? story.passcodeHintParagraph
+    : [];
+
+  // Prefer backend's selectedPasscode if exists
+  const backendPasscode = story.selectedPasscode
+    ? String(story.selectedPasscode)
+    : null;
+  const backendHint = story.selectedPasscodeHintParagraph || null;
+
+  const fallbackPasscode = codes[selectedIndex]
+    ? String(codes[selectedIndex])
+    : "";
+  const fallbackHint =
+    hints[selectedIndex] && hints[selectedIndex].length > 0
+      ? hints[selectedIndex]
+      : null;
+
+  const selectedPasscode = backendPasscode || fallbackPasscode;
+  const selectedHintParagraph = backendHint || fallbackHint;
+
+  const passcodeLength = selectedPasscode
+    ? selectedPasscode.length
+    : 6;
 
   const checkPasscode = (code) => {
+    if (!selectedPasscode) {
+      setErrorMsg("Passcode not available. Please restart the case.");
+      return;
+    }
+
     if (code === selectedPasscode) {
-      // Correct passcode → go to MessageApp
       navigate("/messages", { state: { story } });
     } else {
-      // Wrong → increment attempts
       setAttempts((prev) => {
         const next = prev + 1;
         if (next >= 5) {
@@ -58,12 +137,12 @@ export default function Unlock() {
   };
 
   const handleDigitClick = (digit) => {
-    if (input.length >= 6) return;
+    if (input.length >= passcodeLength) return;
 
     const newInput = input + digit;
     setInput(newInput);
 
-    if (newInput.length === 6) {
+    if (newInput.length === passcodeLength) {
       checkPasscode(newInput);
     }
   };
@@ -83,7 +162,7 @@ export default function Unlock() {
           <div className="passcode-wrap">
             <div className="passcode-title">Enter Passcode</div>
             <div className="passcode-dots" aria-hidden="true">
-              {Array.from({ length: 6 }).map((_, i) => (
+              {Array.from({ length: passcodeLength }).map((_, i) => (
                 <span
                   key={i}
                   className="dot"

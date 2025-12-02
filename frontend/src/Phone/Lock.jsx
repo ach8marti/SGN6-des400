@@ -1,3 +1,4 @@
+// src/Phone/Lock.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Phone.css";
@@ -12,13 +13,29 @@ export default function Lock() {
     const fetchStory = async () => {
       try {
         const res = await fetch("http://localhost:3001/api/story");
+
+        // Basic HTTP error handling
+        if (!res.ok) {
+          console.error("Failed to fetch story. Status:", res.status);
+          setStory(null);
+          return;
+        }
+
         const data = await res.json();
 
-        // เซฟไว้ให้หน้าอื่นใช้ (unlock, suspects ฯลฯ)
+        // If backend returns an error object, handle it
+        if (data && data.error) {
+          console.error("Backend /api/story error:", data.error);
+          setStory(null);
+          return;
+        }
+
+        // Persist selected story (including selectedPasscode fields)
         localStorage.setItem("currentStory", JSON.stringify(data));
         setStory(data);
       } catch (err) {
         console.error("Error fetching story:", err);
+        setStory(null);
       } finally {
         setLoading(false);
       }
@@ -28,9 +45,11 @@ export default function Lock() {
   }, []);
 
   const next = () => {
+    // Proceed to passcode unlock screen
     navigate("/unlock");
   };
 
+  // Loading state while /api/story is in progress
   if (loading) {
     return (
       <div className="lock-page">
@@ -51,6 +70,7 @@ export default function Lock() {
     );
   }
 
+  // Error state: could not load or parse a valid story
   if (!story) {
     return (
       <div className="lock-page">
@@ -71,6 +91,7 @@ export default function Lock() {
     );
   }
 
+  // Normal state: show the selected story's intro text
   return (
     <div className="lock-page">
       {/* LEFT: phone frame */}
@@ -83,7 +104,7 @@ export default function Lock() {
         </div>
       </div>
 
-      {/* RIGHT: story text box (เฉพาะเนื้อเรื่อง) */}
+      {/* RIGHT: story text box */}
       <div className="lock-text-box">
         <div className="story-text">
           <p style={{ opacity: 0.8, fontSize: "14px", marginBottom: "8px" }}>
