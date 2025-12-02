@@ -11,6 +11,7 @@ import Character from "./Character/Character";
 import Evidence from "./Evidence/Evidence";
 import BadEnd from "./Ending/BadEnd";
 import GoodEnd from "./Ending/GoodEnd";
+import Investigate from "./Investigate/Investigate";
 import Killer from "./Killer/Killer"; 
 
 export default function App() {
@@ -27,6 +28,7 @@ export default function App() {
         <Route path="/killer" element={<Killer />} /> 
         <Route path="/bad-end" element={<BadEnd />} />
         <Route path="/good-end" element={<GoodEnd />} />
+        <Route path="/investigate" element={<Investigate />} />
       </Routes>
     </Router>
   );
