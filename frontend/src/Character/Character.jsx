@@ -26,8 +26,7 @@ export default function Character() {
   }, []);
 
   const handleBack = () => {
-    // กลับไปหน้า message / chat
-    navigate("/messages");
+    navigate(-1); // Goes back one page in history
   };
 
   // ถ้าได้มาน้อยกว่า 5 ให้ใส่ null เติม จะได้ layout คงที่

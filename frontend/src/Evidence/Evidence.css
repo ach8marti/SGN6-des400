@@ -139,3 +139,27 @@
   color: #C12020;
   background: #ffffff;
 }
+
+.selection-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.evidence-card.selectable {
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.evidence-card.selectable:hover {
+  transform: scale(1.05);
+}
+
+.evidence-card.selected {
+  border: 3px solid #ff6b6b;
+  box-shadow: 0 0 15px rgba(255, 107, 107, 0.5);
+}
+
+.done-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

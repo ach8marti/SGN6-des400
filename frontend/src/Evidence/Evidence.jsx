@@ -1,20 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import "./Evidence.css";
 import TopIcons from "../Phone/TopIcons.jsx";
 
 export default function Evidence() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [evidence, setEvidence] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [unlocked, setUnlocked] = useState(false);
-
-  useEffect(() => {
-    const flag =
-      typeof window !== "undefined" &&
-      localStorage.getItem("evidenceUnlocked") === "true";
-    setUnlocked(flag);
-  }, []);
+  const [selectedEvidence, setSelectedEvidence] = useState(null);
+  
+  // Check if we're in selection mode
+  const isSelectionMode = searchParams.get("mode") === "select";
 
   useEffect(() => {
     const fetchEvidence = async () => {
@@ -23,46 +20,27 @@ export default function Evidence() {
           fetch("http://localhost:3001/api/evidence"),
           fetch("http://localhost:3001/api/suspects"),
         ]);
-
         const evidenceData = await evidenceResponse.json();
         const suspectsData = await suspectsResponse.json();
 
-        // Shuffle evidence
         const shuffled = [...evidenceData];
         for (let i = shuffled.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
           [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
         }
 
-        // 🔹 image files for the first 2 unlocked slots
         const imageFiles = [
           "/pics/evidence/e1.png",
-          "/pics/evidence/e2.png", // <- change this if your second file has another name
+          "/pics/evidence/e2.png",
         ];
 
-        // Take 4 pieces total
         const selected = shuffled.slice(0, 4).map((item, index) => {
           let description = item.summaryTemplate;
-
-          // Pick a random suspect
           const randomSuspect =
             suspectsData[Math.floor(Math.random() * suspectsData.length)];
-
-          // Replace [SUSPECT_NAME]
-          description = description.replace(
-            /\[SUSPECT_NAME\]/g,
-            randomSuspect.name
-          );
-
-          // Replace [S] with first letter
-          description = description.replace(
-            /\[S\]/g,
-            randomSuspect.name.charAt(0)
-          );
-
-          // 🔹 Assign image: first two items get e1/e2, others don't need it
-          const imagePath =
-            index < 2 ? imageFiles[index] : null; // locked ones don't need an image
+          description = description.replace(/\[SUSPECT_NAME\]/g, randomSuspect.name);
+          description = description.replace(/\[S\]/g, randomSuspect.name.charAt(0));
+          const imagePath = index < 2 ? imageFiles[index] : null;
 
           return {
             ...item,
@@ -78,11 +56,26 @@ export default function Evidence() {
         setLoading(false);
       }
     };
+
     fetchEvidence();
   }, []);
 
+  const handleSelectEvidence = (item, index) => {
+    if (isSelectionMode && index < 2) {
+      setSelectedEvidence(item);
+    }
+  };
+
   const handleDone = () => {
-    navigate("/messages");
+    if (isSelectionMode) {
+      // Return to killer page with selected evidence
+      navigate("/killer", { 
+        state: { selectedEvidence } 
+      });
+    } else {
+      // Normal view mode - go back
+      navigate(-1);
+    }
   };
 
   if (loading) {
@@ -92,10 +85,24 @@ export default function Evidence() {
   return (
     <div className="page evidence-page">
       <TopIcons />
+      
+      {isSelectionMode && (
+        <div className="selection-header">
+          <h2>Select Evidence for Your Accusation</h2>
+        </div>
+      )}
 
       <div className="evidence-grid">
         {evidence.map((item, index) => (
-          <div className="evidence-card" key={index}>
+          <div 
+            className={`evidence-card ${
+              isSelectionMode && index < 2 ? "selectable" : ""
+            } ${
+              selectedEvidence === item ? "selected" : ""
+            }`}
+            key={index}
+            onClick={() => handleSelectEvidence(item, index)}
+          >
             <div className={`evidence-frame ${index >= 2 ? "locked-slot" : ""}`}>
               {index < 2 ? (
                 <img src={item.imagePath} alt="Evidence" />
@@ -121,8 +128,12 @@ export default function Evidence() {
         ))}
       </div>
 
-      <button className="done-button" onClick={handleDone}>
-        Done
+      <button 
+        className="done-button" 
+        onClick={handleDone}
+        disabled={isSelectionMode && !selectedEvidence}
+      >
+        {isSelectionMode ? "Confirm Selection" : "Done"}
       </button>
     </div>
   );
