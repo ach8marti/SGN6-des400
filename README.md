@@ -1,4 +1,4 @@
-# My Project
+# DES400 Project Development
 **Preface:**
 
 This project is the work of group SGN6 on the subject DES400: Project Development submitted to School of Information, Computer, and Communication Technology, Sirindhorn International Institute of Technology.
