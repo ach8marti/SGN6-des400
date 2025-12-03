@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Phone.css";
+import { resetGame } from "../gameState";
 
 export default function Lock() {
   const navigate = useNavigate();
@@ -10,11 +11,15 @@ export default function Lock() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchStory = async () => {
+    const init = async () => {
+      resetGame();  // ล้าง state เกม + currentStory ทุกครั้งที่เข้าหน้า Lock
+
+      setLoading(true);
+      setStory(null);
+
       try {
         const res = await fetch("http://localhost:3001/api/story");
 
-        // Basic HTTP error handling
         if (!res.ok) {
           console.error("Failed to fetch story. Status:", res.status);
           setStory(null);
@@ -23,14 +28,12 @@ export default function Lock() {
 
         const data = await res.json();
 
-        // If backend returns an error object, handle it
         if (data && data.error) {
           console.error("Backend /api/story error:", data.error);
           setStory(null);
           return;
         }
 
-        // Persist selected story (including selectedPasscode fields)
         localStorage.setItem("currentStory", JSON.stringify(data));
         setStory(data);
       } catch (err) {
@@ -41,15 +44,13 @@ export default function Lock() {
       }
     };
 
-    fetchStory();
+    init();
   }, []);
 
   const next = () => {
-    // Proceed to passcode unlock screen
     navigate("/unlock");
   };
 
-  // Loading state while /api/story is in progress
   if (loading) {
     return (
       <div className="lock-page">
@@ -70,7 +71,6 @@ export default function Lock() {
     );
   }
 
-  // Error state: could not load or parse a valid story
   if (!story) {
     return (
       <div className="lock-page">
@@ -91,10 +91,8 @@ export default function Lock() {
     );
   }
 
-  // Normal state: show the selected story's intro text
   return (
     <div className="lock-page">
-      {/* LEFT: phone frame */}
       <div className="lock-phone">
         <div
           className="lock-phone-screen"
@@ -104,7 +102,6 @@ export default function Lock() {
         </div>
       </div>
 
-      {/* RIGHT: story text box */}
       <div className="lock-text-box">
         <div className="story-text">
           <p style={{ opacity: 0.8, fontSize: "14px", marginBottom: "8px" }}>
@@ -118,7 +115,6 @@ export default function Lock() {
         </div>
       </div>
 
-      {/* NEXT button */}
       <div className="next-button" onClick={next}>
         <span>Next</span>
         <span className="arrow">›</span>

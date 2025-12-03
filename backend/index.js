@@ -21,6 +21,7 @@ function readJson(fileName) {
 // ------------------------------------------------------------
 // GET /api/story
 // ------------------------------------------------------------
+
 app.get("/api/story", (req, res) => {
   try {
     const stories = readJson("stories.json");
@@ -29,7 +30,17 @@ app.get("/api/story", (req, res) => {
       return res.status(500).json({ error: "No stories available" });
     }
 
-    const story = stories[Math.floor(Math.random() * stories.length)];
+    const randomIndex = Math.floor(Math.random() * stories.length);
+    const baseStory = stories[randomIndex];
+
+    const idMapByIndex = ["uni_group", "office_group", "village_line"];
+    const storyId =
+      baseStory.id || baseStory.storyId || idMapByIndex[randomIndex] || "uni_group";
+
+    const story = {
+      ...baseStory,
+      id: storyId,
+    };
 
     const passcodes = story.passcode || [];
     const hints = story.passcodeHintParagraph || [];
@@ -40,24 +51,25 @@ app.get("/api/story", (req, res) => {
         ...story,
         selectedPasscode: null,
         selectedPasscodeHintParagraph: null,
-        selectedPasscodeIndex: null
+        selectedPasscodeIndex: null,
       });
     }
 
     const idx = Math.floor(Math.random() * pairCount);
 
-    return res.json({
+    const responsePayload = {
       ...story,
       selectedPasscode: passcodes[idx],
       selectedPasscodeHintParagraph: hints[idx],
-      selectedPasscodeIndex: idx
-    });
+      selectedPasscodeIndex: idx,
+    };
+
+    return res.json(responsePayload);
   } catch (err) {
     console.error("Error in /api/story:", err);
     return res.status(500).json({ error: "Failed to load story file" });
   }
 });
-
 // ------------------------------------------------------------
 // FIXED: GET /api/chat 
 // (works with chatScripts.json in object format)

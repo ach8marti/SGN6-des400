@@ -49,7 +49,6 @@ export default function Chat() {
     }
   }, []);
 
-  // ดึง chat script แต่ละ phase แล้วต่อท้ายใน messages
   useEffect(() => {
     if (!storyId) return;
 

@@ -1,3 +1,4 @@
+// src/gameState.js
 const KEY = "detectiveGameState";
 
 export function loadGame() {
@@ -13,8 +14,12 @@ export function saveGame(state) {
 }
 
 export function resetGame() {
-  localStorage.removeItem(KEY);
-  localStorage.removeItem("currentStory");
+  try {
+    localStorage.removeItem(KEY);
+    localStorage.removeItem("currentStory");
+  } catch (e) {
+    console.error("Failed to reset game:", e);
+  }
 }
 
 /* ---------- SUSPECTS ---------- */
@@ -54,7 +59,6 @@ export function lockEvidenceAssignments(evidenceList) {
   return map;
 }
 
-// เพิ่ม evidence เข้า unlockedEvidence (จาก reply.isCorrect)
 export function addEvidenceUnlock(evidenceIds = []) {
   const gs = loadGame();
   const current = new Set(gs.unlockedEvidence || []);
@@ -68,7 +72,6 @@ export function getUnlockedEvidence() {
   return gs.unlockedEvidence || [];
 }
 
-// สร้าง object สำหรับ UI evidence (ใช้ตอน Evidence.jsx)
 export function getEvidenceForDisplay(evidenceList) {
   const gs = loadGame();
   const assignment = gs.evidenceAssignments || {};
