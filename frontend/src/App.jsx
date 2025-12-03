@@ -28,7 +28,7 @@ export default function App() {
         <Route path="/killer" element={<Killer />} /> 
         <Route path="/bad-end" element={<BadEnd />} />
         <Route path="/good-end" element={<GoodEnd />} />
-        <Route path="/investigate" element={<Investigate />} />
+        <Route path="/investigate/:suspectId" element={<Investigate />} />
       </Routes>
     </Router>
   );

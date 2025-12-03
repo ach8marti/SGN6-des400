@@ -3,37 +3,23 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Character.css";
 import TopIcons from "../Phone/TopIcons";
+import { loadGame, canInvestigateMore } from "../gameState";
 
 export default function Character() {
-  const [suspects, setSuspects] = useState([]);
   const navigate = useNavigate();
+  const [suspects, setSuspects] = useState([]);
+  const [canInvestigate, setCanInvestigate] = useState(true);
 
   useEffect(() => {
-    const fetchSuspects = async () => {
-      try {
-        const res = await fetch("http://localhost:3001/api/suspects");
-        const data = await res.json();
-
-        // สุ่มแล้วเอาแค่ 5 คน
-        const shuffled = data.sort(() => Math.random() - 0.5);
-        setSuspects(shuffled.slice(0, 5));
-      } catch (err) {
-        console.error("Error fetching suspects:", err);
-      }
-    };
-
-    fetchSuspects();
+    const gs = loadGame();
+    setSuspects(gs.suspects || []);
+    setCanInvestigate(canInvestigateMore());
   }, []);
 
-  const handleBack = () => {
-    navigate(-1); // Goes back one page in history
+  const openInvestigate = (id) => {
+    if (!canInvestigate) return;
+    navigate(`/investigate/${id}`);
   };
-
-  // ถ้าได้มาน้อยกว่า 5 ให้ใส่ null เติม จะได้ layout คงที่
-  const slots = [...suspects];
-  while (slots.length < 5) {
-    slots.push(null);
-  }
 
   return (
     <div className="character-page">
@@ -41,33 +27,47 @@ export default function Character() {
       <h1 className="title">Suspects</h1>
 
       <div className="suspect-grid">
-        {slots.slice(0, 5).map((suspect, index) => (
-          <div className="suspect-card" key={index}>
+        {suspects.map((s, i) => (
+          <div
+            key={i}
+            className="suspect-card"
+            onClick={() => openInvestigate(s.id)}
+            style={{
+              opacity: canInvestigate ? 1 : 0.5,
+              pointerEvents: canInvestigate ? "auto" : "none",
+              position: "relative",
+            }}
+          >
             <div className="suspect-img">
-              {suspect && (
-                <img 
-                  src={suspect.image}
-                  alt={suspect.name || "suspect"} 
-                  onError={(e) => {
-                    console.error(`Failed to load image: ${suspect.image}`);
-                  }}
-                />
-              )}
+              <img src={s.image} alt={s.name} />
             </div>
 
+            {!canInvestigate && (
+              <div
+                style={{
+                  position: "absolute",
+                  top: "6px",
+                  right: "10px",
+                  fontSize: "26px",
+                  color: "#fff",
+                  textShadow: "0 0 6px #000",
+                }}
+              >
+                🔒
+              </div>
+            )}
+
             <div className="suspect-info">
-              <p>{suspect?.name || "-"}</p>
-              <p>Role: {suspect?.role || "-"}</p>
-              <p>Trust: {suspect?.trust || "-"}</p>
-              <p>Relation: {suspect?.relation || "-"}</p>
-              <p>Suspicion: {suspect?.suspicion || "-"}</p>
-              <p>Trait: {suspect?.traits?.join(", ") || "-"}</p>
+              <p>{s.name}</p>
+              <p>Role: {s.role}</p>
+              <p>Relation: {s.relation}</p>
+              <p>Trust: {s.trust}</p>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="back-button" onClick={handleBack}>
+      <div className="back-button" onClick={() => navigate(-1)}>
         ‹ Back
       </div>
     </div>
