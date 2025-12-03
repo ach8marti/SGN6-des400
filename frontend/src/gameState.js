@@ -1,9 +1,5 @@
-// src/gameState.js
 const KEY = "detectiveGameState";
 
-// ----------------------------------------------------------
-// Load / Save
-// ----------------------------------------------------------
 export function loadGame() {
   try {
     return JSON.parse(localStorage.getItem(KEY)) || {};
@@ -16,16 +12,16 @@ export function saveGame(state) {
   localStorage.setItem(KEY, JSON.stringify(state));
 }
 
-// ----------------------------------------------------------
-// Suspects – lock 5 คนแรกเพียงครั้งเดียว
-// ----------------------------------------------------------
+export function resetGame() {
+  localStorage.removeItem(KEY);
+  localStorage.removeItem("currentStory");
+}
+
+/* ---------- SUSPECTS ---------- */
+
 export function lockSuspects(suspects) {
   const gs = loadGame();
-
-  if (gs.suspects && gs.suspects.length === 5) {
-    return gs.suspects; // already locked
-  }
-
+  if (gs.suspects && gs.suspects.length > 0) return gs.suspects;
   gs.suspects = suspects.slice(0, 5);
   saveGame(gs);
   return gs.suspects;
@@ -33,19 +29,21 @@ export function lockSuspects(suspects) {
 
 export function getLockedSuspects() {
   const gs = loadGame();
-  return gs.suspects || null;
+  return gs.suspects || [];
 }
 
-// ----------------------------------------------------------
-// Evidence – assign ให้ผู้ต้องสงสัยแบบสุ่ม 1 ครั้ง
-// ----------------------------------------------------------
+/* ---------- EVIDENCE ---------- */
+
 export function lockEvidenceAssignments(evidenceList) {
   const gs = loadGame();
-  if (gs.evidenceAssignments) return gs.evidenceAssignments;
+  if (gs.evidenceAssignments && Object.keys(gs.evidenceAssignments).length > 0) {
+    return gs.evidenceAssignments;
+  }
 
   const suspects = gs.suspects || [];
-  const map = {};
+  if (suspects.length === 0) return {};
 
+  const map = {};
   evidenceList.forEach((ev) => {
     const rand = suspects[Math.floor(Math.random() * suspects.length)];
     map[ev.id] = rand.name;
@@ -56,45 +54,68 @@ export function lockEvidenceAssignments(evidenceList) {
   return map;
 }
 
-export function getEvidenceForDisplay(evidenceList) {
+// เพิ่ม evidence เข้า unlockedEvidence (จาก reply.isCorrect)
+export function addEvidenceUnlock(evidenceIds = []) {
   const gs = loadGame();
-  const assign = gs.evidenceAssignments || {};
-
-  return evidenceList.slice(0, 4).map((ev, idx) => ({
-    ...ev,
-    isUnlocked: idx < 2,
-    description: ev.summaryTemplate?.replace("[SUSPECT_NAME]", assign[ev.id]),
-    imagePath: idx < 2 ? `/pics/evidence/${ev.id}.png` : null,
-  }));
+  const current = new Set(gs.unlockedEvidence || []);
+  evidenceIds.forEach((id) => current.add(id));
+  gs.unlockedEvidence = Array.from(current);
+  saveGame(gs);
 }
 
-// ----------------------------------------------------------
-// Investigation Count (max 2 times)
-// ----------------------------------------------------------
+export function getUnlockedEvidence() {
+  const gs = loadGame();
+  return gs.unlockedEvidence || [];
+}
+
+// สร้าง object สำหรับ UI evidence (ใช้ตอน Evidence.jsx)
+export function getEvidenceForDisplay(evidenceList) {
+  const gs = loadGame();
+  const assignment = gs.evidenceAssignments || {};
+  const unlockedSet = new Set(gs.unlockedEvidence || []);
+  const suspects = gs.suspects || [];
+
+  return evidenceList.slice(0, 4).map((ev) => {
+    const suspectName =
+      assignment[ev.id] || (suspects[0] ? suspects[0].name : "Unknown");
+
+    return {
+      ...ev,
+      isUnlocked: unlockedSet.has(ev.id),
+      description: ev.summaryTemplate
+        ? ev.summaryTemplate.replace("[SUSPECT_NAME]", suspectName)
+        : "",
+      imagePath: `/pics/evidence/${ev.id}.png`,
+    };
+  });
+}
+
+/* ---------- INTERROGATION ---------- */
+
 export function increaseInterrogation() {
   const gs = loadGame();
   gs.interrogationCount = (gs.interrogationCount || 0) + 1;
   saveGame(gs);
 }
 
-export function canInvestigateMore() {
+export function getInterrogationCount() {
   const gs = loadGame();
-  return (gs.interrogationCount || 0) < 2;
+  return gs.interrogationCount || 0;
 }
 
-// ----------------------------------------------------------
-// Correct Choices (need 4 to unlock accuse button)
-// ----------------------------------------------------------
+export function canInvestigateMore() {
+  return getInterrogationCount() < 2;
+}
+
+/* ---------- CORRECT ANSWERS ---------- */
+
 export function increaseCorrect() {
   const gs = loadGame();
   gs.correctAnswers = (gs.correctAnswers || 0) + 1;
   saveGame(gs);
 }
 
-export function canAccuse() {
+export function getCorrectAnswers() {
   const gs = loadGame();
-  return (
-    (gs.correctAnswers || 0) >= 4 &&
-    (gs.interrogationCount || 0) >= 2
-  );
+  return gs.correctAnswers || 0;
 }

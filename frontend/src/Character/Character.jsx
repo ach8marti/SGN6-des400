@@ -1,62 +1,54 @@
-// src/Character/Character.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Character.css";
 import TopIcons from "../Phone/TopIcons";
-import { loadGame, canInvestigateMore } from "../gameState";
+import { loadGame, lockSuspects, getLockedSuspects } from "../gameState";
 
 export default function Character() {
   const navigate = useNavigate();
   const [suspects, setSuspects] = useState([]);
-  const [canInvestigate, setCanInvestigate] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const gs = loadGame();
-    setSuspects(gs.suspects || []);
-    setCanInvestigate(canInvestigateMore());
+    const init = async () => {
+      const locked = getLockedSuspects();
+      if (locked.length > 0) {
+        setSuspects(locked);
+        setLoading(false);
+        return;
+      }
+      try {
+        const storyRaw = localStorage.getItem("currentStory");
+        const story = storyRaw ? JSON.parse(storyRaw) : {};
+        const storyType = story.type || "university";
+        const res = await fetch(
+          `http://localhost:3001/api/suspects?type=${storyType}`
+        );
+        const data = await res.json();
+        const finalLocked = lockSuspects(data.slice(0, 5));
+        setSuspects(finalLocked);
+      } catch (e) {}
+      setLoading(false);
+    };
+    init();
   }, []);
 
-  const openInvestigate = (id) => {
-    if (!canInvestigate) return;
-    navigate(`/investigate/${id}`);
-  };
+  if (loading) return <div>Loading...</div>;
 
   return (
     <div className="character-page">
       <TopIcons />
       <h1 className="title">Suspects</h1>
-
       <div className="suspect-grid">
-        {suspects.map((s, i) => (
+        {suspects.map((s) => (
           <div
-            key={i}
+            key={s.id}
             className="suspect-card"
-            onClick={() => openInvestigate(s.id)}
-            style={{
-              opacity: canInvestigate ? 1 : 0.5,
-              pointerEvents: canInvestigate ? "auto" : "none",
-              position: "relative",
-            }}
+            onClick={() => navigate(`/investigate/${s.id}`)}
           >
             <div className="suspect-img">
               <img src={s.image} alt={s.name} />
             </div>
-
-            {!canInvestigate && (
-              <div
-                style={{
-                  position: "absolute",
-                  top: "6px",
-                  right: "10px",
-                  fontSize: "26px",
-                  color: "#fff",
-                  textShadow: "0 0 6px #000",
-                }}
-              >
-                🔒
-              </div>
-            )}
-
             <div className="suspect-info">
               <p>{s.name}</p>
               <p>Role: {s.role}</p>
@@ -66,7 +58,6 @@ export default function Character() {
           </div>
         ))}
       </div>
-
       <div className="back-button" onClick={() => navigate(-1)}>
         ‹ Back
       </div>

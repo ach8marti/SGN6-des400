@@ -12,7 +12,7 @@ import Evidence from "./Evidence/Evidence";
 import BadEnd from "./Ending/BadEnd";
 import GoodEnd from "./Ending/GoodEnd";
 import Investigate from "./Investigate/Investigate";
-import Killer from "./Killer/Killer"; 
+import Killer from "./Killer/Killer";
 
 export default function App() {
   return (
@@ -23,12 +23,17 @@ export default function App() {
         <Route path="/unlock" element={<Unlock />} />
         <Route path="/messages" element={<MessageApp />} />
         <Route path="/chat" element={<Chat />} />
+
+        {/* FIX HERE */}
         <Route path="/suspects" element={<Character />} />
+        <Route path="/investigate/:suspectId" element={<Investigate />} />
+
         <Route path="/evidence" element={<Evidence />} />
-        <Route path="/killer" element={<Killer />} /> 
+        <Route path="/killer" element={<Killer />} />
+
+        {/* endings */}
         <Route path="/bad-end" element={<BadEnd />} />
         <Route path="/good-end" element={<GoodEnd />} />
-        <Route path="/investigate/:suspectId" element={<Investigate />} />
       </Routes>
     </Router>
   );

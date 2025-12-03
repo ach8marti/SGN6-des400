@@ -12,58 +12,49 @@ export default function Unlock() {
   const [attempts, setAttempts] = useState(0);
   const [errorMsg, setErrorMsg] = useState("");
 
-  // Load story from localStorage and decide which passcode/hint to use
+  // 🔥 ดึง story ใหม่จาก backend ทุกครั้งที่เข้า /unlock
   useEffect(() => {
-    const saved = localStorage.getItem("currentStory");
-    if (!saved) {
-      navigate("/lock");
-      return;
-    }
+    const fetchStory = async () => {
+      try {
+        const res = await fetch("http://localhost:3001/api/story");
+        const data = await res.json();
 
-    try {
-      const parsedStory = JSON.parse(saved);
-      setStory(parsedStory);
+        // เก็บ story ใหม่ใน localStorage เผื่อหน้าอื่นใช้
+        localStorage.setItem("currentStory", JSON.stringify(data));
+        setStory(data);
 
-      // PRIMARY: if backend already chose one pair, use that
-      if (
-        parsedStory.selectedPasscode &&
-        parsedStory.selectedPasscodeHintParagraph
-      ) {
-        // Keep index if provided, otherwise default to 0
-        const idx =
-          typeof parsedStory.selectedPasscodeIndex === "number"
-            ? parsedStory.selectedPasscodeIndex
-            : 0;
-        setSelectedIndex(idx);
-        return;
+        // ถ้า backend ยิง selectedPasscodeIndex มาแล้ว → ใช้อันนั้น
+        if (typeof data.selectedPasscodeIndex === "number") {
+          setSelectedIndex(data.selectedPasscodeIndex);
+          return;
+        }
+
+        // ถ้าไม่ได้ส่ง index มาก็สุ่มเองจาก passcode[] + hint[]
+        const codes = Array.isArray(data.passcode) ? data.passcode : [];
+        const hints = Array.isArray(data.passcodeHintParagraph)
+          ? data.passcodeHintParagraph
+          : [];
+        const maxPairs = Math.min(codes.length, hints.length);
+
+        if (maxPairs > 0) {
+          const randomIdx = Math.floor(Math.random() * maxPairs);
+          setSelectedIndex(randomIdx);
+        } else if (codes.length > 0) {
+          setSelectedIndex(0);
+        } else {
+          console.warn("Story has no passcode defined:", data);
+          setSelectedIndex(-1);
+        }
+      } catch (err) {
+        console.error("Failed to load story:", err);
+        setErrorMsg("Failed to load story. Please try again.");
       }
+    };
 
-      // FALLBACK: compute a random index from passcode[] + passcodeHintParagraph[]
-      const codes = Array.isArray(parsedStory.passcode)
-        ? parsedStory.passcode
-        : [];
-      const hints = Array.isArray(parsedStory.passcodeHintParagraph)
-        ? parsedStory.passcodeHintParagraph
-        : [];
+    fetchStory();
+  }, []);
 
-      const maxPairs = Math.min(codes.length, hints.length);
-
-      if (maxPairs > 0) {
-        const randomIdx = Math.floor(Math.random() * maxPairs);
-        setSelectedIndex(randomIdx);
-      } else if (codes.length > 0) {
-        setSelectedIndex(0);
-      } else {
-        console.warn("Story has no passcode defined:", parsedStory);
-        setSelectedIndex(-1);
-      }
-    } catch (err) {
-      console.error("Failed to parse currentStory from localStorage:", err);
-      navigate("/lock");
-    }
-  }, [navigate]);
-
-  // Loading or invalid state
+  // ยังโหลด story / index อยู่
   if (!story || selectedIndex === -1) {
     return (
       <div className="lock-page">
@@ -80,19 +71,19 @@ export default function Unlock() {
         <div className="lock-text-box">
           <div className="story-text">
             <p>Loading passcode data...</p>
+            {errorMsg && <p style={{ color: "#ff6666" }}>{errorMsg}</p>}
           </div>
         </div>
       </div>
     );
   }
 
-  // Derive passcode + hint
+  // ----- ดึง passcode + hint ตาม index -----
   const codes = Array.isArray(story.passcode) ? story.passcode : [];
   const hints = Array.isArray(story.passcodeHintParagraph)
     ? story.passcodeHintParagraph
     : [];
 
-  // Prefer backend's selectedPasscode if exists
   const backendPasscode = story.selectedPasscode
     ? String(story.selectedPasscode)
     : null;
@@ -109,10 +100,9 @@ export default function Unlock() {
   const selectedPasscode = backendPasscode || fallbackPasscode;
   const selectedHintParagraph = backendHint || fallbackHint;
 
-  const passcodeLength = selectedPasscode
-    ? selectedPasscode.length
-    : 6;
+  const passcodeLength = selectedPasscode ? selectedPasscode.length : 6;
 
+  // ----- logic ตรวจ passcode -----
   const checkPasscode = (code) => {
     if (!selectedPasscode) {
       setErrorMsg("Passcode not available. Please restart the case.");
@@ -138,10 +128,8 @@ export default function Unlock() {
 
   const handleDigitClick = (digit) => {
     if (input.length >= passcodeLength) return;
-
     const newInput = input + digit;
     setInput(newInput);
-
     if (newInput.length === passcodeLength) {
       checkPasscode(newInput);
     }
@@ -199,7 +187,7 @@ export default function Unlock() {
         </div>
       </div>
 
-      {/* RIGHT: hint + attempts */}
+      {/* RIGHT: hint box */}
       <div className="lock-text-box">
         <div className="story-text">
           <p style={{ opacity: 0.8, fontSize: "14px", marginBottom: "8px" }}>
