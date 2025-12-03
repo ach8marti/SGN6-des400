@@ -20,14 +20,22 @@ export default function Evidence() {
       try {
         const res = await fetch("http://localhost:3001/api/evidence");
         const list = await res.json();
-
+        
         lockEvidenceAssignments(list);
         const display = getEvidenceForDisplay(list);
-        setEvidence(display);
-
+        
+        // Map evidence to use e1-e16 naming convention
+        const mappedEvidence = display.map((ev, index) => ({
+          ...ev,
+          imagePath: `/pics/evidence/e${index + 1}.png`
+        }));
+        
+        console.log("Mapped evidence:", mappedEvidence);
+        
+        setEvidence(mappedEvidence);
         saveGame(loadGame());
       } catch (e) {
-        console.error(e);
+        console.error("Error loading evidence:", e);
       }
       setLoading(false);
     };
@@ -39,7 +47,6 @@ export default function Evidence() {
   return (
     <div className="page evidence-page">
       <TopIcons />
-
       <div className="evidence-grid">
         {evidence.map((ev) => (
           <div
@@ -54,7 +61,13 @@ export default function Evidence() {
               }`}
             >
               {ev.isUnlocked ? (
-                <img src={ev.imagePath} alt="ev" />
+                <img 
+                  src={ev.imagePath} 
+                  alt="evidence"
+                  onError={(e) => {
+                    console.error("Failed to load:", ev.imagePath);
+                  }}
+                />
               ) : (
                 <div className="locked-inner">
                   <span className="locked-icon">🔒</span>
@@ -64,7 +77,6 @@ export default function Evidence() {
           </div>
         ))}
       </div>
-
       <div className="description-frame">
         {evidence.map((ev) => (
           <div key={ev.id} className="description-item">
@@ -76,7 +88,6 @@ export default function Evidence() {
           </div>
         ))}
       </div>
-
       <button className="done-button" onClick={() => navigate(-1)}>
         Done
       </button>

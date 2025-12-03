@@ -7,6 +7,7 @@ export default function Investigate() {
   const { suspectId } = useParams();
   const navigate = useNavigate();
   const [suspect, setSuspect] = useState(null);
+  const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
     const load = async () => {
@@ -20,7 +21,20 @@ export default function Investigate() {
 
   if (!suspect) return <div>Loading...</div>;
 
-  const img = suspect.image.replace("/pics/suspect/", "/pics/investigate/");
+  // Build investigate path - always use .png extension
+  let img;
+  if (suspect.image.includes("/pics/suspect/")) {
+    // Extract filename and change extension to .png
+    const filename = suspect.image.split("/").pop().split(".")[0]; // Get name without extension
+    img = `/pics/investigate/${filename}.png`;
+  } else {
+    // Fallback: get last part of path and force .png
+    const filename = suspect.image.split("/").pop().split(".")[0];
+    img = `/pics/investigate/${filename}.png`;
+  }
+
+  console.log("Suspect image:", suspect.image);
+  console.log("Investigate image:", img);
 
   const ask = () => {
     if (!canInvestigateMore()) {
@@ -44,15 +58,21 @@ export default function Investigate() {
           </p>
         </div>
       </div>
-
       <div className="image-frame">
-        <img src={img} alt={suspect.name} />
+        <img
+          src={imgError ? suspect.image : img}
+          alt={suspect.name}
+          onError={(e) => {
+            console.error("Investigate image failed:", img);
+            if (!imgError) {
+              setImgError(true);
+            }
+          }}
+        />
       </div>
-
       <div className="dialogue-box">
-        <p>I– I didn’t go anywhere... I stayed home...</p>
+        <p>I– I didn't go anywhere... I stayed home...</p>
       </div>
-
       <div className="choices">
         <button onClick={ask}>What were you hiding?</button>
         <button onClick={ask}>Why so nervous?</button>
