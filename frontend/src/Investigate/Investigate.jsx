@@ -8,6 +8,8 @@ export default function Investigate() {
   const navigate = useNavigate();
   const [suspect, setSuspect] = useState(null);
   const [imgError, setImgError] = useState(false);
+  const [dialogue, setDialogue] = useState(null);
+  const [showChoices, setShowChoices] = useState(true);
 
   useEffect(() => {
     const load = async () => {
@@ -24,11 +26,9 @@ export default function Investigate() {
   // Build investigate path - always use .png extension
   let img;
   if (suspect.image.includes("/pics/suspect/")) {
-    // Extract filename and change extension to .png
-    const filename = suspect.image.split("/").pop().split(".")[0]; // Get name without extension
+    const filename = suspect.image.split("/").pop().split(".")[0];
     img = `/pics/investigate/${filename}.png`;
   } else {
-    // Fallback: get last part of path and force .png
     const filename = suspect.image.split("/").pop().split(".")[0];
     img = `/pics/investigate/${filename}.png`;
   }
@@ -36,13 +36,30 @@ export default function Investigate() {
   console.log("Suspect image:", suspect.image);
   console.log("Investigate image:", img);
 
-  const ask = () => {
+  const ask = (question, response) => {
     if (!canInvestigateMore()) {
       alert("No investigation attempts left.");
       return;
     }
+
+    // Show the dialogue
+    setDialogue(response);
+    setShowChoices(false);
+
+    // Increase interrogation count
     increaseInterrogation();
-    navigate(-1);
+
+    // Go back after showing dialogue
+    setTimeout(() => {
+      navigate(-1);
+    }, 3000); // Wait 3 seconds before going back
+  };
+
+  // Define responses for each question (you can customize these per suspect)
+  const responses = {
+    hiding: "I– I wasn't hiding anything! Why would you think that?",
+    nervous: "N-nervous? I'm not nervous... It's just... this whole situation is scary.",
+    whereabouts: "I– I didn't go anywhere... I stayed home all night, I swear!"
   };
 
   return (
@@ -70,14 +87,26 @@ export default function Investigate() {
           }}
         />
       </div>
-      <div className="dialogue-box">
-        <p>I– I didn't go anywhere... I stayed home...</p>
-      </div>
-      <div className="choices">
-        <button onClick={ask}>What were you hiding?</button>
-        <button onClick={ask}>Why so nervous?</button>
-        <button onClick={ask}>Where were you last night?</button>
-      </div>
+
+      {dialogue && (
+        <div className="dialogue-box">
+          <p>{dialogue}</p>
+        </div>
+      )}
+
+      {showChoices && (
+        <div className="choices">
+          <button onClick={() => ask("hiding", responses.hiding)}>
+            What were you hiding?
+          </button>
+          <button onClick={() => ask("nervous", responses.nervous)}>
+            Why so nervous?
+          </button>
+          <button onClick={() => ask("whereabouts", responses.whereabouts)}>
+            Where were you last night?
+          </button>
+        </div>
+      )}
     </div>
   );
 }

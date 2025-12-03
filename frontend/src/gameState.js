@@ -17,13 +17,24 @@ export function resetGame() {
   try {
     localStorage.removeItem(KEY);
     localStorage.removeItem("currentStory");
+    
+    // Clear chat data
+    clearChatData();
   } catch (e) {
     console.error("Failed to reset game:", e);
   }
 }
 
-/* ---------- SUSPECTS ---------- */
+// Add helper function to clear only chat data
+export function clearChatData() {
+  localStorage.removeItem("chatMessages");
+  localStorage.removeItem("chatPhase");
+  localStorage.removeItem("chatLoadedPhases");
+  localStorage.removeItem("chatReplies");
+  localStorage.removeItem("chatNextPhase");
+}
 
+/* ---------- SUSPECTS ---------- */
 export function lockSuspects(suspects) {
   const gs = loadGame();
   if (gs.suspects && gs.suspects.length > 0) return gs.suspects;
@@ -38,22 +49,18 @@ export function getLockedSuspects() {
 }
 
 /* ---------- EVIDENCE ---------- */
-
 export function lockEvidenceAssignments(evidenceList) {
   const gs = loadGame();
   if (gs.evidenceAssignments && Object.keys(gs.evidenceAssignments).length > 0) {
     return gs.evidenceAssignments;
   }
-
   const suspects = gs.suspects || [];
   if (suspects.length === 0) return {};
-
   const map = {};
   evidenceList.forEach((ev) => {
     const rand = suspects[Math.floor(Math.random() * suspects.length)];
     map[ev.id] = rand.name;
   });
-
   gs.evidenceAssignments = map;
   saveGame(gs);
   return map;
@@ -77,11 +84,9 @@ export function getEvidenceForDisplay(evidenceList) {
   const assignment = gs.evidenceAssignments || {};
   const unlockedSet = new Set(gs.unlockedEvidence || []);
   const suspects = gs.suspects || [];
-
   return evidenceList.slice(0, 4).map((ev) => {
     const suspectName =
       assignment[ev.id] || (suspects[0] ? suspects[0].name : "Unknown");
-
     return {
       ...ev,
       isUnlocked: unlockedSet.has(ev.id),
@@ -94,7 +99,6 @@ export function getEvidenceForDisplay(evidenceList) {
 }
 
 /* ---------- INTERROGATION ---------- */
-
 export function increaseInterrogation() {
   const gs = loadGame();
   gs.interrogationCount = (gs.interrogationCount || 0) + 1;
@@ -111,7 +115,6 @@ export function canInvestigateMore() {
 }
 
 /* ---------- CORRECT ANSWERS ---------- */
-
 export function increaseCorrect() {
   const gs = loadGame();
   gs.correctAnswers = (gs.correctAnswers || 0) + 1;
